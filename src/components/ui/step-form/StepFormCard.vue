@@ -1,0 +1,34 @@
+<template>
+    <!-- Card -->
+    <div :id="id" class="card" v-show="active">
+    <!-- Header -->
+    <div class="card-header bg-img-hero py-4" style="background-image: url(../../../public/assets/svg/components/abstract-shapes-21.svg);">
+        <div class="flex-grow-1">
+        <h3 class="card-header-title"><slot name="cardheader"/></h3>
+        </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <div class="card-body">
+       <slot name="cardbody"/>
+    </div>
+    <!-- End Body -->
+
+    <!-- Footer -->
+    <div class="card-footer">
+        <div class="d-flex justify-content-end align-items-center">
+            <slot name="cardfooter"/>
+        </div>
+    </div>
+    <!-- End Footer -->
+    </div>
+    <!-- End Card -->
+</template>
+
+
+<script>
+export default {
+    props:["active", "id"]
+}
+</script>
