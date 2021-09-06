@@ -7,7 +7,7 @@
           <!-- Logo -->
           <div class="mb-4">
             <a href="" aria-label="Front">
-              <img class="brand" src="" alt="Logo">
+              <img class="brand" src="../../public/assets/svg/logos/logo-white.svg" alt="Logo">
             </a>
           </div>
           <!-- End Logo -->

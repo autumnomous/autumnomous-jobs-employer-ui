@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+      <!-- CSS Implementing Plugins -->
+      <link rel="stylesheet" href="../public/assets/vendor/fontawesome/css/all.min.css">
+      <link rel="stylesheet" href="../public/assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css">
+      <link rel="stylesheet" href="../node_modules/select2/dist/css/select2.min.css">
+      <link rel="stylesheet" href="../node_modules/ion-rangeslider/css/ion.rangeSlider.css">
+
+      <!-- CSS Front Template -->
+      <link rel="stylesheet" href="../public/assets/css/theme.css">
+
+     
+      
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
@@ -12,6 +23,9 @@
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+
+    <script src="<%= BASE_URL %>/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="<%= BASE_URL %>/node_modules/jquery-migrate/dist/jquery-migrate.min.js"></script>
+  <script src="<%= BASE_URL %>/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

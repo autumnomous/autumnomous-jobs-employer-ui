@@ -27,7 +27,7 @@
                 <!-- End Responsive Toggle Button -->
 
                 <!-- Navigation -->
-                <div id="navBar" class="collapse navbar-collapse">
+                <div id="navBarNavDropdown" class="collapse navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="navbar-nav-item">
                             <router-link class="nav-link" to="/">Home</router-link>
@@ -41,7 +41,7 @@
                             <transition name="fade">
                                   <!-- Listings - Submenu -->
                                     <div v-if="listingsShow" id="jobsSubMenuListing" class="hs-sub-menu dropdown-menu show" aria-labelledby="jobListingsMegaMenu" style="min-width: 230px;">
-                                        <router-link class="dropdown-item" to="/employer/create-job">Post A Job</router-link>
+                                        
                                         <a class="dropdown-item" href="">Listing</a>
                                         <a class="dropdown-item" href="">Listing (Grid)</a>
                                     </div>
@@ -58,6 +58,8 @@
 
                         <!-- Pages - Submenu -->
                         <div v-if="pagesShow" id="jobsSubMenuPages" class="hs-sub-menu dropdown-menu show" aria-labelledby="jobPagesMegaMenu" style="min-width: 230px;">
+                            <router-link class="dropdown-item" to="/employer/create-job">Post A Job</router-link>
+                            <router-link class="dropdown-item" to="/employer/job-list">Job List</router-link>
                             <a class="dropdown-item" href="">Job Overview</a>
                             <a class="dropdown-item" href="">Apply for Job</a>
                             <a class="dropdown-item" href="">Employee (Applicant)</a>
