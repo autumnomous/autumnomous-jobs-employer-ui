@@ -48,44 +48,15 @@
                     <h6 class="small text-cap">Job titles</h6>
 
                     <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div v-for="(count, title) in jobTitles" :key="title" class="d-flex align-items-center justify-content-between mb-2">
                       <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="jobTitles1">
-                        <label class="custom-control-label" for="jobTitles1">Graphic Designer</label>
+                        <input v-model="jobTitleFilter" type="checkbox" class="custom-control-input" :id=" 'jobTitles' + title" :value="title">
+                        <label class="custom-control-label" :for="'jobTitles' + title">{{title}}</label>
                       </div>
-                      <small>2</small>
+                      <small>{{count}}</small>
                     </div>
                     <!-- End Checkbox -->
 
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="jobTitles2" checked>
-                        <label class="custom-control-label" for="jobTitles2">UI/UX Designer</label>
-                      </div>
-                      <small>2</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="jobTitles3" checked>
-                        <label class="custom-control-label" for="jobTitles3">Full Stack Developer</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="jobTitles5">
-                        <label class="custom-control-label" for="jobTitles5">Information Associate</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
                   </div>
                   <!-- End Filter Group -->
 
@@ -102,176 +73,9 @@
                       <small>2</small>
                     </div>
                     <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="company2">
-                        <label class="custom-control-label" for="company2">Spec</label>
-                      </div>
-                      <small>2</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="company3">
-                        <label class="custom-control-label" for="company3">Mailchimp</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="company4">
-                        <label class="custom-control-label" for="company4">Google</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="company5">
-                        <label class="custom-control-label" for="company5">Prosperops</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="company6">
-                        <label class="custom-control-label" for="company6">Figma</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
                   </div>
                   <!-- End Filter Group -->
 
-                  <!-- Filter Group -->
-                  <div class="mb-5">
-                    <h6 class="small text-cap">Years of experience</h6>
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="yearsOfExperience1" checked>
-                        <label class="custom-control-label" for="yearsOfExperience1">6-10 years</label>
-                      </div>
-                      <small>5</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="yearsOfExperience2">
-                        <label class="custom-control-label" for="yearsOfExperience2">3-5 years</label>
-                      </div>
-                      <small>3</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="yearsOfExperience3">
-                        <label class="custom-control-label" for="yearsOfExperience3">More than 10 years</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-                  </div>
-                  <!-- End Filter Group -->
-
-                  <!-- Filter Group -->
-                  <div class="mb-5">
-                    <h6 class="small text-cap">Education</h6>
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="education1">
-                        <label class="custom-control-label" for="education1">Bachelors</label>
-                      </div>
-                      <small>5</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="education2">
-                        <label class="custom-control-label" for="education2">Masters</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="education3">
-                        <label class="custom-control-label" for="education3">Associates</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-                  </div>
-                  <!-- End Filter Group -->
-
-                  <!-- Filter Group -->
-                  <div class="mb-5">
-                    <h6 class="small text-cap">Assessment <i class="far fa-question-circle text-body ml-1" data-toggle="tooltip" data-placement="top" title="Assessments shown her6 are summarized for convenience only. View the candidate’s profile for more information, including score ranges for each assessment. Indeed makes no statement as to the skill level of any candidate."></i></h6>
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="assessment1">
-                        <label class="custom-control-label" for="assessment1">Attention to detail</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="assessment2">
-                        <label class="custom-control-label" for="assessment2">Graphic Design</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="assessment3">
-                        <label class="custom-control-label" for="assessment3">Social Media</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="assessment4">
-                        <label class="custom-control-label" for="assessment4">Marketing</label>
-                      </div>
-                      <small>1</small>
-                    </div>
-                    <!-- End Checkbox -->
-                  </div>
-                  <!-- End Filter Group -->
 
                   <button type="button" class="btn btn-sm btn-block btn-white">
                     <i class="fas fa-redo fa-sm mr-1"></i> Reset all
@@ -288,7 +92,7 @@
 
           <hr class="my-4">
 
-        <div v-for="job in jobs" :key="job.publicid">
+        <div v-for="job in filteredJobs" :key="job.publicid">
           <router-link  :to="'/employer/job-list/' + job.publicid">
               <JobDisplayCard
                 :avatarSrc="job.avatarsrc" 
@@ -344,11 +148,25 @@
     },
     data(){
         return {
-          jobs:[]
+          jobs:[],
+          jobTitleFilter:[],
         }
     },
     computed:{
-      
+        jobTitles(){
+          var titles = {}
+
+          this.jobs.forEach(element => {
+              titles[element.title] = this.jobs.filter(x=> x.title === element.title).length
+          });
+
+          return titles;
+        },
+        filteredJobs(){
+
+          var filtered = this.jobs.filter(x => this.jobTitleFilter.includes(x.title));
+          return filtered.length > 0 ? filtered: this.jobs
+        }
     },
     methods:{
 

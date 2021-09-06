@@ -19,7 +19,7 @@
             </div>
 
             <div class="col-auto order-md-3">
-                
+                <button class="btn btn-md btn-secondary transition-3d-hover">See Applications</button>
             </div>
 
             <div class="col-12 col-md mt-3 mt-md-0">
