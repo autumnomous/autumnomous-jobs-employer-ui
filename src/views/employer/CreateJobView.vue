@@ -564,7 +564,7 @@
         },
         validations(){
           return{
-                title:{required, min:minLength(20)},
+                title:{required, min:minLength(10)},
                 streetAddress:{},
                 state:{},
                 city:{},
