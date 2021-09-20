@@ -8,7 +8,6 @@ import JobList from '../views/JobList.vue'
 import EmployerLogin from '../views/employer/EmployerLogin.vue'
 import EmployerSignUp from '../views/employer/EmployerSignUp.vue'
 import EmployerCompleteRegistration from '../views/employer/EmployerCompleteRegistration.vue';
-import Vue from 'vue'
 
 const routes = [
   {
