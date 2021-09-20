@@ -505,35 +505,35 @@
           this.$emit('update:layout', LayoutDefault);
           this.token = this.$cookies.get('com.bitjobs');
 
-          if(this.token){
-              var jobsData = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobs",
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: "Bearer " + this.token
-                    },
-                    credentials: "include"
-                }
-              ).then(result =>{
+          // if(this.token){
+          //     var jobsData = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobs",
+          //       {
+          //           method: "GET",
+          //           headers: {
+          //               "Content-Type": "application/json",
+          //               Authorization: "Bearer " + this.token
+          //           },
+          //           credentials: "include"
+          //       }
+          //     ).then(result =>{
 
-                  if(!result.ok){
-                    console.log(result)
-                    return result
-                  }
+          //         if(!result.ok){
+          //           console.log(result)
+          //           return result
+          //         }
 
-                  return result.json()
+          //         return result.json()
 
-              })
+          //     })
 
-            if(jobsData){
-                if(jobsData.totalpostsbought == 0){
-                  this.activeStep = "1";
-                }
-            }
-          } else{
-            this.activeStep = "1";
-          }
+          //   if(jobsData){
+          //       if(jobsData.totalpostsbought == 0){
+          //         this.activeStep = "1";
+          //       }
+          //   }
+          // } else{
+          //   this.activeStep = "1";
+          // }
                    
          
 
