@@ -6,18 +6,25 @@
 
     <!-- Pages - Submenu -->
     <div v-if="pagesShow" id="jobsSubMenuPages" class="hs-sub-menu dropdown-menu show" aria-labelledby="jobPagesMegaMenu" style="min-width: 230px;">
-        <router-link class="dropdown-item" to="/employer/create-job">Post A Job</router-link>
-        <router-link class="dropdown-item" to="/employer/dashboard">Dashboard</router-link>
-        <router-link class="dropdown-item" to="/employer/account">Account</router-link>
+        <router-link class="dropdown-item" to="/employer/login">Post A Job</router-link>
+        <router-link class="dropdown-item" to="/employer/job-list">Job List</router-link>
+        <a class="dropdown-item" href="">Job Overview</a>
+        <a class="dropdown-item" href="">Apply for Job</a>
+        <a class="dropdown-item" href="">Employee (Applicant)</a>
+        <a class="dropdown-item" href="">Employer (Company)</a>
     </div>
     <!-- End Pages - Submenu -->
     </li>
     <!-- End Pages -->
 
+    <li class="navbar-nav-item">
+    <a class="nav-link" href="">Upload resume</a>
+    </li>
+
     <!-- Button -->
     <li class="navbar-nav-last-item">
 
-        <router-link class="btn btn-sm btn-primary transition-3d-hover" to="/employer/create-job">Post a job</router-link>
+        <router-link class="btn btn-sm btn-primary transition-3d-hover" to="/employer/login">Post a job</router-link>
         
     </li>
     <!-- End Button -->

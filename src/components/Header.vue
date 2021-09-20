@@ -34,6 +34,9 @@
                                 <router-link class="nav-link" to="/">Home</router-link>
                             </li>
 
+                                
+                                <!-- <AnonymousHeader v-if="!loggedIn"></AnonymousHeader> -->
+                                <!-- <EmployerHeader v-if="loggedIn"></EmployerHeader> -->
                                 <EmployerHeader></EmployerHeader>
                         </ul>
                     </div>
@@ -51,6 +54,7 @@
 <script>
 
 import EmployerHeader from '../components/employer/EmployerHeader.vue';
+import AnonymousHeader from '../components/ui/AnonymousHeader.vue'
 
 export default {
 
@@ -60,11 +64,17 @@ export default {
         }
     },
     components:{
-     EmployerHeader
+     EmployerHeader,
+     AnonymousHeader
     },
     methods:{
         responsiveButtonClick(){
             this.showResponsiveMenu = !this.showResponsiveMenu;
+        }
+    },
+    computed:{
+        loggedIn(){
+            return this.$cookies.get('com.bitjobs');
         }
     }
 

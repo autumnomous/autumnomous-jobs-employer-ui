@@ -140,7 +140,7 @@
 
 <script>
   import JobDisplayCard from '../../components/employer/JobDisplayCard.vue'
-  
+  import LayoutDefault from '../../layouts/LayoutDefault.vue'
   export default {
     name:"Job List",
     components:{
@@ -219,7 +219,10 @@
       // if(this.jobs){
         
       // }
-    }
+    },
+    created() {
+    this.$emit('update:layout', LayoutDefault);
+  },
 }
 </script>
 

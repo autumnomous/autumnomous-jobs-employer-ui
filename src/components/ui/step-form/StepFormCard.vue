@@ -32,3 +32,15 @@ export default {
     props:["active", "id"]
 }
 </script>
+
+<style scoped>
+  div.card-header{
+      background-color:#377DFF;
+      
+  }
+
+  div.card-header h3{
+      color:white;
+  }
+
+</style>

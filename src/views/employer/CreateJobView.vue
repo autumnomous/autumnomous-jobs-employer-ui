@@ -1,89 +1,39 @@
 <template>
-     <main id="content" role="main">
+
+  <main id="content" role="main">
     <!-- Step Section -->
     <div class="container space-top-1 space-top-lg-2 space-bottom-2 space-bottom-lg-3">
       <!-- Step Form -->
       <form class="js-step-form">
         <div class="row">
-          <div id="stickyBlockStartPoint" class="col-lg-4">
-            <!-- Sticky Block -->
-            <div class="js-sticky-block">
-              <!-- Step -->
-              <ul id="postJobStepFormProgress" class="js-step-progress step step-icon-xs step-border-last-0 mt-5">
-                <li class="step-item">
-                  <a class="step-content-wrapper" href="" @click.prevent="activeStep='1'">
-                    <span class="step-icon step-icon-soft-dark">1</span>
-                    <div class="step-content">
-                      <span class="step-title">Getting started</span>
-                      <span class="step-title-description step-text font-size-1">General info about company</span>
-                    </div>
-                  </a>
-                </li>
-
-                <li class="step-item">
-                  <a class="step-content-wrapper" href="" @click.prevent="activeStep='2'">
-                    <span class="step-icon step-icon-soft-dark">2</span>
-                    <div class="step-content">
-                      <span class="step-title">Address</span>
-                      <span class="step-title-description step-text font-size-1">Company location address</span>
-                    </div>
-                  </a>
-                </li>
-
-                <li class="step-item">
-                  <a class="step-content-wrapper" href="" @click.prevent="activeStep='3'">
-                    <span class="step-icon step-icon-soft-dark">3</span>
-                    <div class="step-content">
-                      <span class="step-title">Job details</span>
-                      <span class="step-title-description step-text font-size-1">Job type details and more</span>
-                    </div>
-                  </a>
-                </li>
-
-                <li class="step-item">
-                  <a class="step-content-wrapper" href="" @click.prevent="activeStep='4'">
-                    <span class="step-icon step-icon-soft-dark">4</span>
-                    <div class="step-content">
-                      <span class="step-title">Payment</span>
-                      <span class="step-title-description step-text font-size-1">Pay and receive options</span>
-                    </div>
-                  </a>
-                </li>
-
-                <li class="step-item">
-                  <a class="step-content-wrapper" href="" @click.prevent="activeStep='5'">
-                    <span class="step-icon step-icon-soft-dark">5</span>
-                    <div class="step-content">
-                      <span class="step-title">Additional job details</span>
-                      <span class="step-title-description step-text font-size-1">Job schedule</span>
-                    </div>
-                  </a>
-                </li>
-
-                <li class="step-item">
-                  <a class="step-content-wrapper" href="" @click.prevent="activeStep='6'">
-                    <span class="step-icon step-icon-soft-dark">6</span>
-                    <div class="step-content">
-                      <span class="step-title">Job description</span>
-                      <span class="step-title-description step-text font-size-1">Describe the responsibilities of this job</span>
-                    </div>
-                  </a>
-                </li>
-
-              </ul>
-              <!-- End Step -->
-            </div>
-            <!-- End Sticky Block -->
-          </div>
-
+          <sticky-block @click-step-item="handleStickyBlockClick"></sticky-block>
+          
           <div id="formContainer" class="col-lg-8" v-show="!formSubmitted">
             <!-- Content Step Form -->
             <div id="postJobStepFormContent">
-                <StepFormCard :active="activeStep === '1'" id="step-1">
-                        <template v-slot:cardheader>Getting Started</template>
+                <step-form-card :active="activeStep === '1'" id="step-1" >
+                  <template v-slot:cardheader>Choose a Package</template>
+                    <template v-slot:cardbody>
+
+                          <package-purchase></package-purchase>
+
+                    </template>
+
+                    <template v-slot:cardfooter>
+                            <div class="ml-auto">
+                                <button type="button" class="btn btn-primary" id="step-1-button" @click="nextStep">
+                                Save and continue <i class="fas fa-angle-right ml-1"> </i>
+                                </button>
+                            </div>
+                        </template>
+                </step-form-card>
+
+                <step-form-card :active="activeStep === '2'" id="step-2">
+                        <template v-slot:cardheader>Job details</template>
                         <template v-slot:cardbody>
-                          
-                            <!-- Form Group -->
+                               <!-- Form Group -->
+                  <div class="form-group">
+                    <!-- Form Group -->
                             <div class="form-group" >
                                 <label for="titleLabel" class="input-label">Job title</label>
 
@@ -94,61 +44,40 @@
                             </div>
                             <!-- End Form Group -->
 
-                        </template>
-                        <template v-slot:cardfooter>
-                             <button type="button" class="btn btn-primary" id="step-1-button" @click="nextStep">
-                                Save and continue <i class="fas fa-angle-right ml-1"> </i>
-                                </button>
-                        </template>
-                </StepFormCard>
 
-                <StepFormCard :active="activeStep === '2'" id="step-2">
-                    <template v-slot:cardheader>Address</template>
-                    <template v-slot:cardbody>
-                        <!-- Form Group -->
-                        <div class="form-group">
-                            <label for="streetAddressLabel" class="input-label">Enter a street address</label>
-                            <p class="small mt-n2">We won't share your street address. We use your location to find candidates in your area.</p>
+                    <label class="input-label" for="job-type">What type of job is it?</label>
+                    <select v-model="jobType" name="job-type" id="job-type-select" class="js-custom-select custom-select dropdown-toggle">
+                      <option value="full-time">Full Time</option>
+                      <option value="part-time">Part Time</option>
+                      <option value="temporary">Temporary</option>
+                      <option value="contract">Contract</option>
+                      <option value="internship">Internship</option>
+                      <option value="commission-only">Commission Only</option>
+                    </select>
+                  </div>
 
-                            <input v-model.lazy="streetAddress" type="text" class="form-control" name="streetAddress" id="streetAddressLabel" placeholder="123 Street Avenue" aria-label="Street Address">
-                        </div>
-                        <!-- End Form Group -->
-
-                        <div class="row mx-n2">
-                            <div class="col-sm-6 px-2">
-                            <!-- Form Group -->
-                            <div class="form-group">
-                                <label for="cityLabel" class="input-label">City</label>
-                                <input v-model.lazy="city" type="text" class="form-control" name="cityName" id="cityLabel" placeholder="Cleveland" aria-label="City">
-                            </div>
-                            <!-- End Form Group -->
-                            </div>
-
-                            <div class="col-6 col-sm-3 px-2">
-                            <!-- Form Group -->
-                            <div class="form-group">
-                                <label for="stateLabel" class="input-label">State</label>
-                                <input v-model.lazy="state" type="text" class="form-control" name="stateName" id="stateLabel" placeholder="Ohio" aria-label="State">
-                            </div>
-                            <!-- End Form Group -->
-                            </div>
-
-                            <div class="col-6 col-sm-3 px-2">
-                            <!-- Form Group -->
-                            <div class="form-group">
-                                <label for="zipCodeLabel" class="input-label">ZIP code</label>
-                                <input v-model.lazy="zipcode" type="text" class="js-masked-input form-control" name="zipCodeName" id="zipCodeLabel" placeholder="xxxxx" aria-label="xxxxx">
-                            </div>
-                            <!-- End Form Group -->
-                            </div>
-                        </div>
+                  <div class="form-group">
+                    <label class="input-label" for="job-category">What category of job is it?</label>
+                    <select v-model="jobCategory" name="job-category" id="job-category-select" class="js-custom-select custom-select dropdown-toggle">
+                      <option value="full-stack">Full Stack</option>
+                      <option value="front-end">Front End</option>
+                      <option value="back-end">Back End</option>
+                      <option value="design">Design</option>
+                      <option value="support">Support</option>
+                      <option value="product">Product</option>
+                      <option value="management-finance">Management & Finance</option>
+                      <option value="sales-marketing">Sales & Marketing</option>
+                      <option value="devops-sysadmin">DevOps & Sys Admin</option>
+                    </select>
+                  </div>
+                  <!-- End Form Group -->
 
 
                         </template>
                         <template v-slot:cardfooter>
                     
-                            <button type="button" class="btn btn-ghost-secondary" id="step-2-button-previous" @click="previousStep">
-                                <i class="fas fa-angle-left mr-1"  ></i> Previous step
+                            <button type="button" class="btn btn-ghost-secondary" id="step-2-button-previous"  @click="previousStep">
+                                <i class="fas fa-angle-left mr-1" ></i> Previous step
                             </button>
 
                             <div class="ml-auto">
@@ -158,90 +87,9 @@
                                 </button>
                             </div>
                         </template>
-                </StepFormCard>
+                </step-form-card>
 
-                <StepFormCard :active="activeStep === '3'" id="step-3">
-                        <template v-slot:cardheader>Job details</template>
-                        <template v-slot:cardbody>
-                               <!-- Form Group -->
-                  <div class="form-group">
-                    <label class="input-label">What type of job is it?</label>
-
-
-                    <!-- Custom Radio -->
-                    <div class="form-control mb-2">
-                      <div class="custom-control custom-radio">
-                        <input v-model="jobType" type="radio" class="custom-control-input" name="jobTypeRadioName" id="jobTypeRadio1" value="full-time" checked>
-                        <label class="custom-control-label" for="jobTypeRadio1">Full time</label>
-                      </div>
-                    </div>
-                    <!-- End Custom Radio -->
-
-                    <!-- Custom Radio -->
-                    <div class="form-control mb-2">
-                      <div class="custom-control custom-radio">
-                        <input v-model="jobType" type="radio" class="custom-control-input" name="jobTypeRadioName" id="jobTypeRadio2" value="part-time">
-                        <label class="custom-control-label" for="jobTypeRadio2">Part time</label>
-                      </div>
-                    </div>
-                    <!-- End Custom Radio -->
-
-                    <!-- Custom Radio -->
-                    <div class="form-control mb-2">
-                      <div class="custom-control custom-radio">
-                        <input v-model="jobType" type="radio" class="custom-control-input" name="jobTypeRadioName" id="jobTypeRadio3" value="temporary">
-                        <label class="custom-control-label" for="jobTypeRadio3">Temporary</label>
-                      </div>
-                    </div>
-                    <!-- End Custom Radio -->
-                    
-                    <!-- Custom Radio -->
-                    <div class="form-control mb-2">
-                      <div class="custom-control custom-radio">
-                        <input v-model="jobType" type="radio" class="custom-control-input" name="jobTypeRadioName" id="jobTypeRadio4" value="contract">
-                        <label class="custom-control-label" for="jobTypeRadio4">Contract</label>
-                      </div>
-                    </div>
-                    <!-- End Custom Radio -->
-                    
-                    <!-- Custom Radio -->
-                    <div class="form-control mb-2">
-                      <div class="custom-control custom-radio">
-                        <input v-model="jobType" type="radio" class="custom-control-input" name="jobTypeRadioName" id="jobTypeRadio5" value="internship">
-                        <label class="custom-control-label" for="jobTypeRadio5">Internship</label>
-                      </div>
-                    </div>
-                    <!-- End Custom Radio -->
-                    
-                    <!-- Custom Radio -->
-                    <div class="form-control mb-2">
-                      <div class="custom-control custom-radio">
-                        <input v-model="jobType" type="radio" class="custom-control-input" name="jobTypeRadioName" id="jobTypeRadio6" value="commission-only">
-                        <label class="custom-control-label" for="jobTypeRadio6">Commission only</label>
-                      </div>
-                    </div>
-                    <!-- End Custom Radio -->
-                  </div>
-                  <!-- End Form Group -->
-
-
-                        </template>
-                        <template v-slot:cardfooter>
-                    
-                            <button type="button" class="btn btn-ghost-secondary" id="step-3-button-previous"  @click="previousStep">
-                                <i class="fas fa-angle-left mr-1" ></i> Previous step
-                            </button>
-
-                            <div class="ml-auto">
-            
-                                <button type="button" class="btn btn-primary" id="step-3-button" @click="nextStep">
-                                Save and continue <i class="fas fa-angle-right ml-1"> </i>
-                                </button>
-                            </div>
-                        </template>
-                </StepFormCard>
-
-                <StepFormCard :active="activeStep === '4'" id="step-4">
+                <step-form-card :active="activeStep === '3'" id="step-3">
                     <template v-slot:cardheader>What's the pay?</template>
                     <template v-slot:cardbody>
                           <div class="row mx-n2">
@@ -298,30 +146,31 @@
                     </template>
                     <template v-slot:cardfooter>
                 
-                        <button type="button" class="btn btn-ghost-secondary" id="step-4-button-previous" @click="previousStep">
+                        <button type="button" class="btn btn-ghost-secondary" id="step-3-button-previous" @click="previousStep">
                             <i class="fas fa-angle-left mr-1"  ></i> Previous step
                         </button>
 
                         <div class="ml-auto">
         
-                            <button type="button" class="btn btn-primary" id="step-4-button" @click="nextStep">
+                            <button type="button" class="btn btn-primary" id="step-3-button" @click="nextStep">
                             Save and continue <i class="fas fa-angle-right ml-1"> </i>
                             </button>
                         </div>
                     </template>
-                </StepFormCard>
+                </step-form-card>
 
-                 <StepFormCard :active="activeStep === '5'" id="step-5">
+                <step-form-card :active="activeStep === '4'" id="step-4">
                     <template v-slot:cardheader>Job description</template>
                     <template v-slot:cardbody>
                         <!-- Form Group -->
                   <div class="form-group">
                     <label class="input-label">Describe the responsibilities of this job, required work experience, skills, or education.</label>
-                    <!-- TipTap -->
-                    <!-- <TipTap v-model="jobDescription" :class="{ 'is-invalid': v$.title.$errors.length }"></TipTap> -->
+                    
+                    <ckeditor :editor="editor" v-model="v$.jobDescription.$model"></ckeditor>
 
-                    <textarea v-model="v$.jobDescription.$model" name="jobDescription" id="" cols="30" rows="10" class="form-control" :class="{ 'is-invalid': v$.jobDescription.$errors.length}" ></textarea>
-                    <!-- End TipTap -->
+                    <!-- <textarea v-model="v$.jobDescription.$model" name="jobDescription" id="" cols="30" rows="10" class="form-control" :class="{ 'is-invalid': v$.jobDescription.$errors.length}" ></textarea> -->
+                   
+                  
                      <div class="input-errors" v-for="error of v$.jobDescription.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                       </div>
@@ -331,31 +180,17 @@
                   <!-- Form Group -->
 
 
-                      <label for="titleLabel" class="input-label">How long should this be posted for?</label>
+                      <label for="titleLabel" class="input-label">When should this be posted? Leave empty to decide later!</label>
                         <div class="row mx-n2">
                         
                         <div class="col-8 col-sm-6 px-2">
                           <!-- Form Group -->
                           <div class="form-group">
-                            <label for="jobDurationStartLabel" class="input-label">From</label>
-                            <input v-model.lazy="v$.jobDurationStart.$model" type="date" class="form-control" name="jobDurationStartName" id="jobDurationStartLabel" aria-label="Job Duration Start" :class="{ 'is-invalid': v$.jobDurationStart.$errors.length}">
+                            <label for="jobDurationStartLabel" class="input-label">On</label>
+                            <input v-model.lazy="jobDurationStart" type="date" class="form-control" name="jobDurationStartName" id="jobDurationStartLabel" aria-label="Job Duration Start" :class="{ 'is-invalid': v$.jobDurationStart.$errors.length}">
 
-                                  <div class="input-errors" v-for="error of v$.jobDurationStart.$errors" :key="error.$uid">
-                                    <div class="error-msg">{{ error.$message }}</div>
-                                  </div>
+                                
                             </div>
-                          <!-- End Form Group -->
-                        </div>
-
-                        <div class="col-8 col-sm-6 px-2">
-                          <!-- Form Group -->
-                          <div class="form-group">
-                            <label for="jobDurationEndLabel" class="input-label">To</label>
-                            <input v-model.lazy="v$.jobDurationEnd.$model" type="date" class="form-control" name="jobDurationEndName" id="jobDurationEndLabel" aria-label="Job Duration End" :class="{ 'is-invalid': v$.jobDurationEnd.$errors.length}">
-                              <div class="input-errors" v-for="error of v$.jobDurationEnd.$errors" :key="error.$uid">
-                                <div class="error-msg">{{ error.$message }}</div>
-                              </div>
-                          </div>
                           <!-- End Form Group -->
                         </div>
                       </div>
@@ -365,20 +200,20 @@
                     </template>
                     <template v-slot:cardfooter>
                 
-                        <button type="button" class="btn btn-ghost-secondary" id="step-5-button-previous" @click="previousStep">
+                        <button type="button" class="btn btn-ghost-secondary" id="step-4-button-previous" @click="previousStep">
                             <i class="fas fa-angle-left mr-1"  ></i> Previous step
                         </button>
 
                         <div class="ml-auto">
         
-                            <button type="button" class="btn btn-primary" id="step-5-button" @click="nextStep">
+                            <button type="button" class="btn btn-primary" id="step-4-button" @click="nextStep" v-if="!requirementsMet">
                             Save and continue <i class="fas fa-angle-right ml-1"> </i>
                             </button>
                         </div>
                     </template>
-                </StepFormCard>
+                </step-form-card>
 
-                <StepFormCard :active="activeStep === '6'" id="step-6">
+                <step-form-card :active="activeStep === '5'" id="step-5">
                     <template v-slot:cardheader>Preview job</template>
                     <template v-slot:cardbody>
                         <p>By pressing confirm, you agree that this job will be posted and applications will be processed in accordance with BiT Job's <a href="#">Cookie Policy</a>, <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>. You consent to BiT Job informing a user that you have opened, viewed or made a decision regarding the user's application.</p>
@@ -398,18 +233,6 @@
                   </div>
                   <!-- End Info -->
 
-
-                  <!-- Info -->
-                  <div class="border-bottom pb-4 mb-4">
-                    <div class="row">
-                      <div class="col-sm-8 mb-3 mb-sm-0">
-                        <h5>Street Address</h5>
-                        <span class="d-block">{{streetAddress}} <span v-if="streetAddress != '' ">,</span> {{city}} <span v-if="city != ''">,</span> {{state}} {{zipcode}}</span>
-                      </div>
-                    </div>
-                    <!-- End Row -->
-                  </div>
-                  <!-- End Info -->
 
                   <!-- Info -->
                   <div class="border-bottom pb-4 mb-4">
@@ -479,7 +302,7 @@
                             </button>
                         </div>
                     </template>
-                </StepFormCard>
+                </step-form-card>
 
             </div>
             <!-- End Content Step Form -->
@@ -505,9 +328,6 @@
               </div>
             </div>
             <!-- End Message Body -->
-
-            <!-- Sticky Block End Point -->
-            <div id="stickyBlockEndPoint"></div>
           </div>
         </div>
         <!-- End Row -->
@@ -519,18 +339,18 @@
 </template>
 
 <script>
+    import StickyBlock from '@/components/employer/create-job/StickyBlock.vue';
+    import PackagePurchase from '@/components/employer/PackagePurchase.vue';
     import StepFormCard from '../../components/ui/step-form/StepFormCard.vue'
-    import TipTap from '../../components/ui/TipTap.vue'
+    import LayoutDefault from '../../layouts/LayoutDefault.vue'
+    import CKEditor from '@ckeditor/ckeditor5-vue'
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
     import useVuelidate from '@vuelidate/core'
-    import { required, minLength } from '@vuelidate/validators'
+    import { required, minLength, email } from '@vuelidate/validators'
 
     export default{
         props:{
-          jobTitle: String, 
-          jobStreetAddress:String,
-          jobState:String,
-          jobCity:String,
-          jobZipcode:String,
+          jobTitle: String,
           jobJobType:String,
           jobJobDescription:String,
           jobPayPeriod:String,
@@ -545,44 +365,51 @@
         },
         data(){
             return {
-                steps:["1","2","3","4","5","6","7"],
+               
+                steps:["1","2","3","4","5"],
                 activeStep:"1",
+                editor: ClassicEditor,
                 title:this.jobTitle,
-                streetAddress:this.jobStreetAddress,
-                state:this.jobState,
-                city:this.jobCity,
-                zipcode:this.jobZipcode,
+                employerEmail:"",
                 jobType:this.jobJobType,
+                jobCategory:"",
                 jobDescription:this.jobJobDescription,
                 minSalary:this.jobMinSalary,
                 maxSalary:this.jobMaxSalary,
                 payPeriod:this.jobPayPeriod,
                 jobDurationStart:this.jobJobDurationStart,
                 jobDurationEnd:this.jobJobDurationEnd,
-                formSubmitted:false
+                formSubmitted:false,
+                token:"",
+                jobsData:{},
             }
         },
         validations(){
           return{
+            
                 title:{required, min:minLength(10)},
-                streetAddress:{},
-                state:{},
-                city:{},
-                zipcode:{},
+                employerEmail:{required, email},
                 jobType:{},
-                jobDescription:{required,min:minLength(150)},
+                jobCategory:{},
+                jobDescription:{required,min:minLength(10)},
                 minSalary:{},
                 maxSalary:{},
                 payPeriod:{},
                 jobDurationStart:{required},
-                jobDurationEnd:{required},
+                // jobDurationEnd:{required},
           }
         },
         components:{
+          StickyBlock,
             StepFormCard,
-            TipTap
+            ckeditor: CKEditor.component,
+            PackagePurchase,
         },
          methods:{
+
+           handleStickyBlockClick(stepID){
+             this.activeStep = stepID;
+           },
             previousStep(e){
             var current_step = e.target.id.split("-")[1];
             console.log(current_step)
@@ -599,7 +426,7 @@
             var next_step =current_step + 1;
 
             
-            if(next_step <= Object.keys(this.steps).length){
+            if(next_step <= this.steps.length){
                 
                 this.activeStep = String(next_step);
 
@@ -619,9 +446,9 @@
                           credentials: "include",
                           body: JSON.stringify({ 
                               title:this.title, 
-                              streetaddress:this.streetAddress, 
-                              city:this.city,
-                              zipcode:this.zipcode,
+                              // streetaddress:this.streetAddress, 
+                              // city:this.city,
+                              // zipcode:this.zipcode,
                               tags:this.jobType,
                               description:this.stripHTML(this.jobDescription),
                               minsalary:Number(this.minSalary),
@@ -669,24 +496,57 @@
          computed:{
            strippedDescription(){
              return this.stripHTML(this.jobDescription)
+           },
+           requirementsMet(){
+              return this.v$.$invalid
            }
-         }
+         },
+         async created() {
+          this.$emit('update:layout', LayoutDefault);
+          this.token = this.$cookies.get('com.bitjobs');
+
+          if(this.token){
+              var jobsData = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobs",
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + this.token
+                    },
+                    credentials: "include"
+                }
+              ).then(result =>{
+
+                  if(!result.ok){
+                    console.log(result)
+                    return result
+                  }
+
+                  return result.json()
+
+              })
+
+            if(jobsData){
+                if(jobsData.totalpostsbought == 0){
+                  this.activeStep = "1";
+                }
+            }
+          } else{
+            this.activeStep = "1";
+          }
+                   
+         
+
+
+        },
     }
 </script>
 
-<style>
+<style scoped>
   @import url("../../../public/assets/css/theme.css");
   @import url("../../../public/assets/vendor/fontawesome/css/all.min.css");
   @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
 
-  div.card-header{
-      background-color:#377DFF;
-      
-  }
-
-  div.card-header h3{
-      color:white;
-  }
 
   .error{
     border-color:red;
