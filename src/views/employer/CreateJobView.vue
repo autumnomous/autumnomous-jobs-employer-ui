@@ -15,7 +15,7 @@
                   <template v-slot:cardheader>Choose a Package</template>
                     <template v-slot:cardbody>
 
-                          <package-purchase></package-purchase>
+                          <package-purchase @package-chosen="handlePackageChosen"></package-purchase>
 
                     </template>
 
@@ -206,7 +206,7 @@
 
                         <div class="ml-auto">
         
-                            <button type="button" class="btn btn-primary" id="step-4-button" @click="nextStep" v-if="!requirementsMet">
+                            <button type="button" class="btn btn-primary" id="step-4-button" @click="nextStep" v-if="requirementsMet">
                             Save and continue <i class="fas fa-angle-right ml-1"> </i>
                             </button>
                         </div>
@@ -278,7 +278,7 @@
                     <div class="row">
                       <div class="col-sm-8 mb-3 mb-sm-0">
                         <h5>Job Posting Duration</h5>
-                            <span v-if="jobDurationStart">{{jobDurationStart}}</span> <span v-if="jobDurationEnd">to</span> <span v-if="jobDurationEnd">{{jobDurationEnd}}</span>
+                            <span v-if="jobDurationStart">{{jobDurationStart}}</span> - <span>{{ jobDurationEnd }}</span>
                       </div>
 
                     </div>
@@ -349,17 +349,6 @@
     import { required, minLength, email } from '@vuelidate/validators'
 
     export default{
-        props:{
-          jobTitle: String,
-          jobJobType:String,
-          jobJobDescription:String,
-          jobPayPeriod:String,
-          jobJobDurationStart:String,
-          jobJobDurationEnd:String,
-          jobMinSalary:Number,
-          jobMaxSalary:Number,
-          emitEvent:Boolean
-        },
         setup () {
           return { v$: useVuelidate() }
         },
@@ -369,16 +358,15 @@
                 steps:["1","2","3","4","5"],
                 activeStep:"1",
                 editor: ClassicEditor,
-                title:this.jobTitle,
-                employerEmail:"",
-                jobType:this.jobJobType,
+                packageChosen:"",
+                title:"",
+                jobType:"",
                 jobCategory:"",
-                jobDescription:this.jobJobDescription,
-                minSalary:this.jobMinSalary,
-                maxSalary:this.jobMaxSalary,
-                payPeriod:this.jobPayPeriod,
-                jobDurationStart:this.jobJobDurationStart,
-                jobDurationEnd:this.jobJobDurationEnd,
+                jobDescription:"",
+                minSalary:"",
+                maxSalary:"",
+                payPeriod:"",
+                jobDurationStart:"",
                 formSubmitted:false,
                 token:"",
                 jobsData:{},
@@ -406,13 +394,15 @@
             PackagePurchase,
         },
          methods:{
-
+           handlePackageChosen(packageChosen){
+             this.packageChosen = packageChosen
+           },
            handleStickyBlockClick(stepID){
              this.activeStep = stepID;
            },
             previousStep(e){
             var current_step = e.target.id.split("-")[1];
-            console.log(current_step)
+
             var previous_step = Number(current_step) - 1;
 
             if(previous_step >= 0){
@@ -435,7 +425,7 @@
             },
             async submitForm(e){
                 
-                if(this.emitEvent == false){
+                // if(this.emitEvent == false){
                   let job = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/create/job",
                       {
                           method: "POST",
@@ -445,17 +435,14 @@
                           },
                           credentials: "include",
                           body: JSON.stringify({ 
-                              title:this.title, 
-                              // streetaddress:this.streetAddress, 
-                              // city:this.city,
-                              // zipcode:this.zipcode,
-                              tags:this.jobType,
+                              title:this.title,
+                              jobtype:this.jobType,
+                              category:this.jobCategory,
                               description:this.stripHTML(this.jobDescription),
                               minsalary:Number(this.minSalary),
                               maxsalary:Number(this.maxSalary),
                               payperiod:this.payPeriod,
-                              poststartdatetime:this.jobDurationStart,
-                              postenddatetime: this.jobDurationEnd})
+                              poststartdatetime:this.jobDurationStart})
                       }
                   ).then(result =>{
 
@@ -469,23 +456,23 @@
                   })
 
                   if(job){
-                      console.log(job)
+                      this.formSubmitted = !this.formSubmitted
                     //   this.$router.go()
                   }
-                } else{
-                  this.$emit("submitform",{ 
-                              title:this.title, 
-                              streetaddress:this.streetAddress, 
-                              city:this.city,
-                              zipcode:this.zipcode,
-                              tags:this.jobType,
-                              description:this.stripHTML(this.jobDescription),
-                              minsalary:Number(this.minSalary),
-                              maxsalary:Number(this.maxSalary),
-                              payperiod:this.payPeriod,
-                              poststartdatetime:this.jobDurationStart,
-                              postenddatetime: this.jobDurationEnd})
-                }
+                // } else{
+                //   this.$emit("submitform",{ 
+                //               title:this.title, 
+                //               streetaddress:this.streetAddress, 
+                //               city:this.city,
+                //               zipcode:this.zipcode,
+                //               tags:this.jobType,
+                //               description:this.stripHTML(this.jobDescription),
+                //               minsalary:Number(this.minSalary),
+                //               maxsalary:Number(this.maxSalary),
+                //               payperiod:this.payPeriod,
+                //               poststartdatetime:this.jobDurationStart,
+                //               postenddatetime: this.jobDurationEnd})
+                // }
                   
             },
             stripHTML(html){

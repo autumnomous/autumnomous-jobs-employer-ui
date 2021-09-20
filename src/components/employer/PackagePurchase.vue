@@ -2,9 +2,9 @@
 
     <div class="form-group" v-for="jobPackage in jobPackages" :key="jobPackage.id">
         <div class="form-control mb-2" >
-        <div class="custom-control custom-radio" >
+        <div class="custom-control custom-radio">
             
-            <input type="radio" class="custom-control-input" v-model="chosen"  name="job-package" :value="jobPackage.typeid" :id="jobPackage.title" >
+            <input type="radio" class="custom-control-input" @click="handleClick"  name="job-package" :value="jobPackage.typeid" :id="jobPackage.title" >
             <label class="custom-control-label" :for="jobPackage.title">{{jobPackage.title}} <span class="text-muted font-size-1">{{jobPackage.description}}</span></label>
             
         </div>
@@ -15,10 +15,10 @@
 
 <script>
 export default {
+    emits:["package-chosen"],
     data(){
         return{
-           jobPackages:[],
-            chosen:"Single Job Posting",
+           jobPackages:[]
         }
     },
     async created(){
@@ -45,6 +45,11 @@ export default {
 
         this.jobPackages = this.jobPackages.sort((a,b) => a.id - b.id)
 
+    },
+    methods:{
+        handleClick(e){
+            this.$emit('package-chosen',e.target.value)
+        }
     }
 }
 </script>
