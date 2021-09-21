@@ -424,14 +424,13 @@
             
             },
             async submitForm(e){
-                
                 // if(this.emitEvent == false){
                   let job = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/create/job",
                       {
                           method: "POST",
                           headers: {
                               "Content-Type": "application/json",
-                              Authorization: "Bearer " + process.env.VUE_APP_JWT
+                              Authorization: "Bearer " + this.token
                           },
                           credentials: "include",
                           body: JSON.stringify({ 
