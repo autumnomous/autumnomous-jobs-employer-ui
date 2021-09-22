@@ -430,7 +430,7 @@
                           method: "POST",
                           headers: {
                               "Content-Type": "application/json",
-                              Authorization: "Bearer " + this.token
+                              Authorization: "Bearer " + process.env.VUE_APP_JWT
                           },
                           credentials: "include",
                           body: JSON.stringify({ 
