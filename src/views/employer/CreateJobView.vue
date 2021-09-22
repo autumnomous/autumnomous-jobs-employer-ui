@@ -432,7 +432,7 @@
                               "Content-Type": "application/json",
                               Authorization: "Bearer " + process.env.VUE_APP_JWT
                           },
-                          credentials: "include",
+                          // credentials: "include",
                           body: JSON.stringify({ 
                               title:this.title,
                               jobtype:this.jobType,
