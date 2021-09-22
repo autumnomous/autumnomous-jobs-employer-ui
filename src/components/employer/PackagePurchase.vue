@@ -28,7 +28,7 @@ export default {
                           method: "GET",
                           headers: {
                               "Content-Type": "application/json",
-                              Authorization: "Bearer " + process.env.VUE_APP_JWT
+                              Authorization: "Bearer " + process.env.VUE_APP_BIT_API_KEY
                           },
                         //   credentials: "include"
                       }
