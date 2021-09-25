@@ -5,7 +5,7 @@
     <!-- Step Section -->
     <div class="container space-top-1 space-top-lg-2 space-bottom-2 space-bottom-lg-3">
       <!-- Step Form -->
-      <form class="js-step-form">
+      <form class="js-step-form" enctype="multipart/form-data">
         <div class="row">
           <div id="stickyBlockStartPoint" class="col-lg-4">
             <!-- Sticky Block -->
@@ -120,6 +120,7 @@ import RegistrationLayout from '../../layouts/RegistrationLayout.vue'
 import StepFormCard from '../../components/ui/step-form/StepFormCard.vue'
 import ChangePassword from '../../components/employer/registration/ChangePassword.vue'
 import PersonalInformation from '../../components/employer/registration/PersonalInformation.vue'
+import CompanyDetails from '../../components/employer/registration/CompanyDetails.vue'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import useVuelidate from '@vuelidate/core'
@@ -168,35 +169,14 @@ import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators
             StepFormCard,
             ChangePassword,
             PersonalInformation,
+            CompanyDetails, 
             ckeditor: CKEditor.component,
         }, 
         data(){
             return {
-                steps:["change-password","personal-information","3","4","5","6","7"],
+                steps:["change-password","personal-information","company-details","4","5","6","7"],
                 activeStep:"change-password",
                 editor: ClassicEditor,
-                personalInformation:{
-                    firstname:"",
-                    lastname:"",
-                    email:"",
-                    phoneNumber:"",
-                    mobileNumber:"",
-                    role:""
-                },
-                companyDetails:{
-                    companyName:"",
-                    location:"",
-                    url:"",
-                    socials:{
-                        facebook:"",
-                        twitter:"",
-                        instagram:"",
-                    },
-                    bio:"",
-                    logo:"",
-                    otherDetails:""
-
-                },
                 paymentMethod:{
                     method:"",
                     details:""
