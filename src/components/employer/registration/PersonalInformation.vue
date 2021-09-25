@@ -1,0 +1,173 @@
+<template>
+    <step-form-card id="personal-information">
+
+        <template v-slot:cardheader>Enter Your Personal Information</template>
+        <template v-slot:cardbody>
+          <alert-error v-if="submissionError" :message="errorMessage"></alert-error>
+
+                <div class="form-group" >
+                    <label for="firstname" class="input-label">First Name</label>
+
+                    <input v-model.lazy="v$.personalInformation.firstname.$model" type="text" class="form-control" name="firstname" id="firstname" aria-label="First Name" :class="{ 'is-invalid': v$.personalInformation.firstname.$error}">
+                    
+                      <div class="input-errors" v-for="error of v$.personalInformation.firstname.$errors" :key="error.$uid">
+                        <div class="error-msg">{{ error.$message }}</div>
+                      </div>
+                </div>
+
+                <div class="form-group" >
+                    <label for="lastname" class="input-label">Last Name</label>
+
+                    <input v-model.lazy="v$.personalInformation.lastname.$model" type="text" class="form-control" name="lastname" id="lastname" aria-label="Last Name" :class="{ 'is-invalid': v$.personalInformation.lastname.$error}">
+                    
+                      <div class="input-errors" v-for="error of v$.personalInformation.lastname.$errors" :key="error.$uid">
+                        <div class="error-msg">{{ error.$message }}</div>
+                      </div>
+                </div>
+
+                <div class="form-group" >
+                    <label for="email" class="input-label">Email</label>
+
+                    <input v-model.lazy="v$.personalInformation.email.$model" type="text" class="form-control" name="email" id="email" aria-label="Email" :class="{ 'is-invalid': v$.personalInformation.email.$error}">
+                    
+                      <div class="input-errors" v-for="error of v$.personalInformation.email.$errors" :key="error.$uid">
+                        <div class="error-msg">{{ error.$message }}</div>
+                      </div>
+                </div>
+
+                <div class="form-group" >
+                    <label for="phonenumber" class="input-label">Phone Number</label>
+
+                    <input v-model.lazy="v$.personalInformation.phoneNumber.$model" type="tel" class="form-control" name="phonenumber" id="phonenumber" aria-label="Phone Number" :class="{ 'is-invalid': v$.personalInformation.phoneNumber.$error}">
+                    
+                      <div class="input-errors" v-for="error of v$.personalInformation.phoneNumber.$errors" :key="error.$uid">
+                        <div class="error-msg">{{ error.$message }}</div>
+                      </div>
+                </div>
+
+                <div class="form-group" >
+                    <label for="mobilenumber" class="input-label">Mobile Number</label>
+
+                    <input v-model.lazy="v$.personalInformation.mobileNumber.$model" type="tel" class="form-control" name="mobilenumber" id="mobilenumber" aria-label="Mobile Number" :class="{ 'is-invalid': v$.personalInformation.mobileNumber.$error}">
+                    
+                      <div class="input-errors" v-for="error of v$.personalInformation.mobileNumber.$errors" :key="error.$uid">
+                        <div class="error-msg">{{ error.$message }}</div>
+                      </div>
+                </div>
+
+                <div class="form-group" >
+                    <label for="role" class="input-label">Role</label>
+
+                    <input v-model.lazy="v$.personalInformation.role.$model" type="text" class="form-control" name="role" id="role" aria-label="Role" :class="{ 'is-invalid': v$.personalInformation.role.$error}">
+                    
+                      <div class="input-errors" v-for="error of v$.personalInformation.role.$errors" :key="error.$uid">
+                        <div class="error-msg">{{ error.$message }}</div>
+                      </div>
+                </div>
+
+
+        </template>
+
+        <template v-slot:cardfooter>
+
+
+                <div class="ml-auto">
+                    <button type="button" class="btn btn-primary" id="step-2-button" @click="formSubmit">
+                    Save and continue <i class="fas fa-angle-right ml-1"> </i>
+                    </button>
+                </div>
+        </template>
+    </step-form-card>
+</template>
+
+<script>
+
+import AlertError from '../../ui/AlertError.vue'
+import StepFormCard from '../../ui/step-form/StepFormCard.vue'
+import useVuelidate from '@vuelidate/core'
+import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators'
+
+    export default {
+      props:{
+        employer:Object
+      },
+       setup(){
+            return {
+                 v$: useVuelidate()
+            }
+        },
+        components:{
+          StepFormCard,
+          AlertError
+        },
+        data(){
+          return {
+             personalInformation:{
+                    firstname:this.employer.firstname,
+                    lastname:this.employer.lastname,
+                    email:this.employer.email,
+                    phoneNumber:"",
+                    mobileNumber:"",
+                    role:""
+                },
+                errorMessage:"",
+                submissionError:false
+
+          }
+        },
+        validations(){
+            return {
+                personalInformation:{
+                    firstname:{required},
+                    lastname:{required},
+                    email:{required},
+                    phoneNumber:{required},
+                    mobileNumber:{required},
+                    role:{required}
+                }
+                
+            }
+        },
+        methods:{
+            async formSubmit(){
+                if (this.v$.$invalid){
+                    this.errorMessage = "Form has errors or is missing input.";
+                    this.submissionError = true;
+                } else { 
+                    this.submissionError = false;
+                    var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
+                    
+                      const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-account",
+                      {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: "Bearer " + token
+                            },
+                            // credentials: "include",
+                            body: JSON.stringify({ 
+                                firstname:this.v$.personalInformation.firstname.$model,
+                                lastname:this.v$.personalInformation.lastname.$model,
+                                email:this.v$.personalInformation.email.$model, 
+                                phonenumber:this.v$.personalInformation.phoneNumber.$model, 
+                                mobilenumber:this.v$.personalInformation.mobileNumber.$model, 
+                                role:this.v$.personalInformation.role.$model})
+                        }
+                    )
+
+                    if(result.ok){
+                        this.submissionError = false;
+                        
+                        this.$emit("next-step","company-details")
+                    } else { 
+                        console.log("error")
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+
+</style>

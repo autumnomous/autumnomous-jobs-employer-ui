@@ -1,6 +1,6 @@
 <template>
     <!-- Card -->
-    <div :id="id" class="card" v-show="active">
+    <div :id="id" class="card">
     <!-- Header -->
     <div class="card-header bg-img-hero py-4" style="background-image: url(../../../public/assets/svg/components/abstract-shapes-21.svg);">
         <div class="flex-grow-1">
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-    props:["active", "id"]
+    props:["id"]
 }
 </script>
 

@@ -76,8 +76,7 @@ export default {
             login:{
                 email:"",
                 password:"",
-            },
-            token:""
+            }
         }
     },
     validations(){
@@ -94,39 +93,22 @@ export default {
 
         async formSubmit(e){
 
-            this.token = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/login",
-                      {
-                          method: "POST",
-                          headers: {
-                              "Content-Type": "application/json",
-                              Authorization: "Bearer " + process.env.VUE_APP_BIT_API_KEY
-                          },
-                          credentials: "include",
-                          body: JSON.stringify({ 
-                              email:this.login.email,
-                              password:this.login.password})
-                      }
-                  ).then(result =>{
+            try {
+                await this.$store.dispatch("login", {email:this.login.email, password:this.login.password})
 
-                      if(!result.ok){
-                        console.log(result)
-                        return result
-                      }
-
-                      return result.json()
-
-                  })
-
-            if(this.token){
-                this.$cookies.set('com.bitjobs', this.token.token);
-                
-                if(!this.token.initialpasswordchanged){
+                 if(this.$store.getters.getRegistrationStep != "complete"){
                     this.$router.replace('/employer/registration')
                 } else{
                     this.$router.replace('/employer/dashboard')
                 }
 
+            } catch (error) {
+                console.log(error);
             }
+
+           
+
+        
         }
     },
     created() {

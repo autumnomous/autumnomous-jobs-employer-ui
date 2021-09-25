@@ -121,7 +121,7 @@ import AlertError from '../../components/ui/AlertError.vue'
                               "Content-Type": "application/json",
                               Authorization: "Bearer " + process.env.VUE_APP_BIT_API_KEY
                           },
-                          credentials: "include",
+                          // credentials: "include",
                           body: JSON.stringify({ 
                               email:this.v$.email.model,
                               firstname:this.v$.firstname.model,

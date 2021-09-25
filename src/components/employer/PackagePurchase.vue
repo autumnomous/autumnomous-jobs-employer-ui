@@ -22,13 +22,13 @@ export default {
         }
     },
     async created(){
-
+        const token = this.$cookies.get('com.bitjobs');
         this.jobPackages = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobpackages/active",
                       {
                           method: "GET",
                           headers: {
                               "Content-Type": "application/json",
-                              Authorization: "Bearer " + process.env.VUE_APP_JWT
+                              Authorization: "Bearer " + token
                           },
                         //   credentials: "include"
                       }

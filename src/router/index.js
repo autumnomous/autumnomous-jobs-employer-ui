@@ -45,7 +45,7 @@ const routes = [
     name: 'Employer Dashbaord',
     component:Dashboard,
     beforeEnter:(to, from, next)=>{
-       console.log(Vue)
+       console.log(Vue.$cookies)
     }
   },
   {
@@ -73,17 +73,19 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to,from, next) =>{
-//   // var token = window.$cookies.get('com.bitjobs');
-//   // if(to.fullPath === '/login'){
+router.beforeEach((to,from, next) =>{
+  // const { $cookies } = router.app.config.globalProperties
+  // console.log('com.bitjobs', $cookies.get('com.bitjobs'))
+  next()
+  // if(to.fullPath === '/login'){
 
-//   //   if(token){
-//   //     next('/employer/dashboard')
-//   //   }
-//   // }
+  //   if(token){
+  //     next('/employer/dashboard')
+  //   }
+  // }
 
-//   // if(to.fullPath === ''){
+  // if(to.fullPath === ''){
 
-//   // }
-// })
+  // }
+})
 export default router
