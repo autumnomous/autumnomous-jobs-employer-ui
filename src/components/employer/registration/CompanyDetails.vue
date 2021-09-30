@@ -178,7 +178,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
                     this.submissionError = false;
                     var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
                     
-                      const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-account",
+                      const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-company",
                       {
                             method: "POST",
                             headers: {
