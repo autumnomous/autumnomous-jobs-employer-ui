@@ -272,51 +272,53 @@ import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators
                 }
                 //  upload image to server
             },
-            async formSubmit(){
+            // async formSubmit(){
                 
-                if (this.v$.$invalid){
-                    this.errorMessage = "Form has errors.";
-                    this.submissionError = true;
-                } else { 
-                      const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-password",
-                      {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                Authorization: "Bearer " + this.$store.getters.getToken
-                            },
-                            credentials: "include",
-                            body: JSON.stringify({ 
-                                newpassword:this.v$.newpassword.$model,
-                                password:this.v$.currentpassword.$model})
-                        }
-                    ).then(result =>{
-                        return result
-
-                    })
+            //     if (this.v$.$invalid){
+            //         this.errorMessage = "Form has errors.";
+            //         this.submissionError = true;
+            //     } else { 
+            //       var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
                     
-                    if(result.ok){
-                        this.submissionError = false;
-                        this.$router.replace('/employer/dashboard')
-                    } else{
-                        this.submissionError = true;
-                        this.errorMessage = "An error occurred while processing your request. Make sure your current password is correct!"
-                    }
-                }
+            //           const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-password",
+            //           {
+            //                 method: "POST",
+            //                 headers: {
+            //                     "Content-Type": "application/json",
+            //                     Authorization: "Bearer " + token
+            //                 },
+            //                 credentials: "include",
+            //                 body: JSON.stringify({ 
+            //                     newpassword:this.v$.newpassword.$model,
+            //                     password:this.v$.currentpassword.$model})
+            //             }
+            //         ).then(result =>{
+            //             return result
+
+            //         })
+                    
+            //         if(result.ok){
+            //             this.submissionError = false;
+            //             this.$router.replace('/employer/dashboard')
+            //         } else{
+            //             this.submissionError = true;
+            //             this.errorMessage = "An error occurred while processing your request. Make sure your current password is correct!"
+            //         }
+            //     }
               
 
-            if(this.token){
-                console.log(this.token)
-                this.$cookies.set('com.bitjobs', this.token.token);
+            // if(this.token){
+            //     console.log(this.token)
+            //     this.$cookies.set('com.bitjobs', this.token.token);
                 
-                if(!this.token.initialpasswordchanged){
-                    this.$router.replace('/employer/change-password')
-                } else{
-                    this.$router.replace('/employer/dashboard')
-                }
+            //     if(!this.token.initialpasswordchanged){
+            //         this.$router.replace('/employer/change-password')
+            //     } else{
+            //         this.$router.replace('/employer/dashboard')
+            //     }
 
-            }
-            }
+            // }
+            // }
         },
         
     }
