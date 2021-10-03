@@ -98,7 +98,7 @@
 
         <template v-slot:cardfooter>
                 <div class="ml-auto">
-                    <button type="button" class="btn btn-primary" id="company-details-button" @click="nextStep">
+                    <button type="button" class="btn btn-primary" id="company-details-button" @click="formSubmit">
                     Save and continue <i class="fas fa-angle-right ml-1"> </i>
                     </button>
                 </div>
@@ -202,7 +202,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
                     if(result.ok){
                         this.submissionError = false;
                         
-                        this.$emit("next-step","company-details")
+                        this.$emit("next-step","select-payment-method")
                     } else { 
                         console.log("error")
                     }

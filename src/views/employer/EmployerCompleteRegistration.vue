@@ -120,6 +120,7 @@ import RegistrationLayout from '../../layouts/RegistrationLayout.vue'
 import StepFormCard from '../../components/ui/step-form/StepFormCard.vue'
 import ChangePassword from '../../components/employer/registration/ChangePassword.vue'
 import PersonalInformation from '../../components/employer/registration/PersonalInformation.vue'
+import SelectPaymentMethod from '../../components/employer/registration/SelectPaymentMethod.vue'
 import CompanyDetails from '../../components/employer/registration/CompanyDetails.vue'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
@@ -170,11 +171,12 @@ import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators
             ChangePassword,
             PersonalInformation,
             CompanyDetails, 
+            SelectPaymentMethod,
             ckeditor: CKEditor.component,
         }, 
         data(){
             return {
-                steps:["change-password","personal-information","company-details","4","5","6","7"],
+                steps:["change-password","personal-information","company-details","select-payment-method","enter-payment-details","complete"],
                 activeStep:"change-password",
                 editor: ClassicEditor,
                 paymentMethod:{
@@ -247,31 +249,12 @@ import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators
             }
         },
         methods:{
-            nextStep(next_step){
+            nextStep(nextStep){
 
-                this.activeStep = this.steps.find((el)=>{ el == next_step})
-
-                // var current_step = Number(e.target.id.split("-")[1]);
-                
-
-                // var next_step =current_step + 1;
-
-                
-                // if(next_step <= Object.keys(this.steps).length){
-                    
-                //     this.activeStep = String(next_step);
-
-                // }
+              this.activeStep = this.steps.find(el=> el == nextStep)
             
             },
-            onFileChange(e){
-                var file = e.target.files || e.dataTransfer.files;
-
-                if(!file.length){
-                    return;
-                }
-                //  upload image to server
-            },
+    
             // async formSubmit(){
                 
             //     if (this.v$.$invalid){
