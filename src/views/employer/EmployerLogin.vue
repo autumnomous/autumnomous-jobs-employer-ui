@@ -4,7 +4,7 @@
         <template v-slot:sidecontent>
             
         </template>
-        
+        <alert-error v-if="resultError" :message="resultMessage"></alert-error>
         <!-- Form -->
         <form class="js-validate" @submit.prevent="formSubmit">
             <!-- Title -->
@@ -39,6 +39,7 @@
             </div>
             <!-- End Form Group -->
 
+            <captcha-test @captcha-done="validateCaptcha"></captcha-test>
             <!-- Button -->
             <div class="row align-items-center mb-5">
             <div class="col-sm-6 mb-3 mb-sm-0">
@@ -59,6 +60,8 @@
 <script>
 
 import CoverRow from '../../components/ui/auth/CoverRow.vue'
+import CaptchaTest from '../../components/ui/auth/CaptchaTest.vue'
+import AlertError from '../../components/ui/AlertError.vue'
 import AuthLayout from '../../layouts/AuthLayout.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, minLength, email } from '@vuelidate/validators'
@@ -69,14 +72,19 @@ export default {
         return { v$: useVuelidate() }
     },
     components:{
-        CoverRow
+        CoverRow,
+        CaptchaTest,
+        AlertError
     },
     data(){
         return {
             login:{
                 email:"",
                 password:"",
-            }
+            },
+            captchaResult:null,
+            resultError:false,
+            resultMessage:"",
         }
     },
     validations(){
@@ -90,20 +98,26 @@ export default {
     },
 
     methods:{
-
+        validateCaptcha(captchaResult){
+            this.captchaResult = captchaResult
+        },
         async formSubmit(e){
 
             try {
-                await this.$store.dispatch("login", {email:this.login.email, password:this.login.password})
 
-                 if(this.$store.getters.getRegistrationStep != "complete"){
-                    this.$router.replace('/employer/registration')
-                } else{
-                    this.$router.replace('/employer/dashboard')
+                if(this.captchaResult){
+                    await this.$store.dispatch("login", {email:this.login.email, password:this.login.password})
+
+                    if(this.$store.getters.getRegistrationStep != "complete"){
+                        this.$router.replace('/employer/registration')
+                    } else{
+                        this.$router.replace('/employer/dashboard')
+                    }
                 }
 
             } catch (error) {
-                console.log(error);
+               this.resultError = true;
+               this.resultMessage = "Login failed, please check your email and password and try again."
             }
 
            

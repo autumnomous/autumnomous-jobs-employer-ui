@@ -47,6 +47,8 @@
               </div>
               <!-- End Form Group -->
 
+              <captcha-test @captcha-done="validateCaptcha"></captcha-test>
+              
               <!-- Checkbox -->
               <div class="js-form-message mb-5">
                 <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
@@ -82,10 +84,11 @@
 <script>
     import AuthLayout from '../../layouts/AuthLayout.vue'
     import CoverRow from '../../components/ui/auth/CoverRow.vue'
+    import CaptchaTest from '../../components/ui/auth/CaptchaTest.vue'
     import useVuelidate from '@vuelidate/core'
     import { required, email } from '@vuelidate/validators'
-import AlertSuccess from '../../components/ui/AlertSuccess.vue'
-import AlertError from '../../components/ui/AlertError.vue'
+    import AlertSuccess from '../../components/ui/AlertSuccess.vue'
+    import AlertError from '../../components/ui/AlertError.vue'
 
     export default {
         setup () {
@@ -93,8 +96,9 @@ import AlertError from '../../components/ui/AlertError.vue'
         },
         components:{
             CoverRow,
-                AlertSuccess,
-                AlertError
+            AlertSuccess,
+            AlertError,
+            CaptchaTest
         },
         data(){
             return {
@@ -102,7 +106,8 @@ import AlertError from '../../components/ui/AlertError.vue'
                 firstname:"",
                 lastname:"",
                 resultOk:false,
-                resultError:false
+                resultError:false,
+                captchaResult:null
             }
         },
         validations(){
@@ -113,8 +118,13 @@ import AlertError from '../../components/ui/AlertError.vue'
           }
         },
         methods:{
+
+          validateCaptcha(captchaResult){
+              this.captchaResult = captchaResult
+          },
             async formSubmit(e){
-              const result=  await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/signup",
+              if(this.captchaResult){
+                const result=  await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/signup",
                       {
                           method: "POST",
                           headers: {
@@ -150,6 +160,9 @@ import AlertError from '../../components/ui/AlertError.vue'
               this.resultOk = false;
               this.resultError = true;
             }
+              }
+
+              
 
             }
         },created() {
