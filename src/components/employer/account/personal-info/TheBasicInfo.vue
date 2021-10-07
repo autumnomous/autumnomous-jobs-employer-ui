@@ -32,7 +32,7 @@
             <!-- End Form Group -->
 
             <!-- Form Group -->
-            <div class="js-add-field row form-group">
+            <div class="row form-group">
                 <label for="phoneLabel" class="col-sm-3 col-form-label input-label">Phone <span class="input-label-secondary">(Optional)</span></label>
 
                 <div class="col">
@@ -76,6 +76,34 @@
 
             </div>
             <!-- End Form Group -->
+
+            <div class="row form-group" >
+                <label for="role" class="col-sm-3 col-form-label input-label">Facebook</label>
+
+                <div class="col-sm-9">
+
+                    <input v-model.lazy="facebook" type="text" class="form-control" name="role" id="role" aria-label="Facebook">
+                </div>
+            </div>
+
+            <div class="row form-group" >
+                <label for="role" class="col-sm-3 col-form-label input-label">Twitter</label>
+
+                <div class="col-sm-9">
+
+                    <input v-model.lazy="twitter" type="text" class="form-control" name="role" id="role" aria-label="Twitter">
+                </div>
+            </div>
+
+            <div class="row form-group" >
+                <label for="role" class="col-sm-3 col-form-label input-label">Instagram</label>
+
+                <div class="col-sm-9">
+
+                    <input v-model.lazy="instagram" type="text" class="form-control" name="role" id="role" aria-label="Instagram">
+                </div>
+            </div>
+
 
             <div class="row form-group" >
                     <label for="role" class="col-sm-3 col-form-label input-label">Role</label>
@@ -131,6 +159,9 @@
                 this.mobile = this.employer.mobilenumber;
                 this.work = this.employer.phonenumber;
                 this.role = this.employer.role;
+                this.facebook = this.employer.facebook
+                this.twitter = this.employer.twitter
+                this.instagram = this.employer.instagram
             }
 
        },
@@ -144,7 +175,10 @@
                 email:"",
                 mobile:"",
                 work:"",
-                role:""
+                role:"",
+                facebook:"",
+                twitter:"",
+                instagram:""
             }
         },
 
