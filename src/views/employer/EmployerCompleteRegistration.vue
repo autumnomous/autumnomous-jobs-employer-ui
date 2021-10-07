@@ -77,28 +77,6 @@
             </div>
             <!-- End Content Step Form -->
 
-            <!-- Message Body -->
-            <div id="successMessageContent" v-show="formSubmitted">
-              <div class="text-center">
-                <img class="img-fluid mb-3" src="../../../public/assets/svg/illustrations/medal.svg" alt="Image Description" style="max-width: 15rem;">
-
-                <div class="mb-4">
-                  <h2>Successful!</h2>
-                  <p>New <span class="font-weight-bold text-dark">UI/UX Designer</span> job has been successfully created.</p>
-                </div>
-
-                <div class="d-flex justify-content-center">
-                  <a class="btn btn-white mr-3" href="employer.html">
-                    Go to profile <i class="fas fa-angle-right mr-1 ml-2"></i>
-                  </a>
-                  <a class="btn btn-primary" href="#" >
-                    <i class="fas fa-briefcase mr-1"></i> Create new job
-                  </a>
-                </div>
-              </div>
-            </div>
-            <!-- End Message Body -->
-
             <!-- Sticky Block End Point -->
             <div id="stickyBlockEndPoint"></div>
           </div>
@@ -114,197 +92,81 @@
 </template>
 
 <script>
-import CoverRow from '../../components/ui/auth/CoverRow.vue'
-import AlertError from '../../components/ui/AlertError.vue'
-import RegistrationLayout from '../../layouts/RegistrationLayout.vue'
-import StepFormCard from '../../components/ui/step-form/StepFormCard.vue'
-import ChangePassword from '../../components/employer/registration/ChangePassword.vue'
-import PersonalInformation from '../../components/employer/registration/PersonalInformation.vue'
-import SelectPaymentMethod from '../../components/employer/registration/SelectPaymentMethod.vue'
-import CompanyDetails from '../../components/employer/registration/CompanyDetails.vue'
-import CKEditor from '@ckeditor/ckeditor5-vue'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import useVuelidate from '@vuelidate/core'
-import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators'
+  import CoverRow from '../../components/ui/auth/CoverRow.vue'
+  import AlertError from '../../components/ui/AlertError.vue'
+  import RegistrationLayout from '../../layouts/RegistrationLayout.vue'
+  import StepFormCard from '../../components/ui/step-form/StepFormCard.vue'
 
-    export default {
-        async created() {
-            this.$emit('update:layout', RegistrationLayout);
+  import ChangePassword from '../../components/employer/registration/ChangePassword.vue'
+  import PersonalInformation from '../../components/employer/registration/PersonalInformation.vue'
+  import CompanyDetails from '../../components/employer/registration/CompanyDetails.vue'
+  import PaymentMethod from '../../components/employer/registration/PaymentMethod.vue'
+  import PaymentDetails from '../../components/employer/registration/PaymentDetails.vue'
+  import RegistrationComplete from '../../components/employer/registration/RegistrationComplete.vue'
 
-           
-            this.token = this.$cookies.get('com.bitjobs');
-            
-            this.employer = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get",
-              {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: "Bearer " + this.token
-                    }
-                }
-              ).then(result =>{
+  export default {
+      async created() {
+          this.$emit('update:layout', RegistrationLayout);
 
-                  if(!result.ok){
-                      console.log(result)
-                      return result
+          
+          this.token = this.$cookies.get('com.bitjobs');
+          
+          this.employer = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get",
+            {
+                  method: "GET",
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + this.token
                   }
-                  return result.json()
+              }
+            ).then(result =>{
 
-              })
-
-
-            if(this.employer){
-              this.activeStep = this.$store.getters.getRegistrationStep || this.employer.registrationstep;
-            }
-
-        },
-
-        setup(){
-            return {
-                 v$: useVuelidate()
-            }
-        },
-        components:{
-            CoverRow,
-            AlertError,
-            StepFormCard,
-            ChangePassword,
-            PersonalInformation,
-            CompanyDetails, 
-            SelectPaymentMethod,
-            ckeditor: CKEditor.component,
-        }, 
-        data(){
-            return {
-                steps:["change-password","personal-information","company-details","select-payment-method","enter-payment-details","complete"],
-                activeStep:"change-password",
-                editor: ClassicEditor,
-                paymentMethod:{
-                    method:"",
-                    details:""
-                },
-                employer:{},
-                token:"",
-                errorMessage:"",
-                submissionError:false,
-                formSubmitted:false,
-                
-            }
-        },
-        validations(){
-            return {
-                paymentMethod:{
-                    method:{required},
-                    details:{}
-                },
-                 companyDetails:{
-                    companyName:{required},
-                    location:{},
-                    url:{required, url},
-                    socials:{
-                        facebook:{},
-                        twitter:{},
-                        instagram:{},
-                    },
-                    bio:{},
-                    logo:{},
-                    otherDetails:{}
-
-                },
-                personalInformation:{
-                    firstname:{required},
-                    lastname:{required},
-                    email:{required},
-                    phoneNumber:{required},
-                    mobileNumber:{required},
-                    role:{required}
-                },
-                password:{
-                    current:{
-                        required: helpers.withMessage('This field cannot be empty', required)
-                    },
-                    new:{
-                        required: helpers.withMessage('This field cannot be empty', required),
-                        minLength:helpers.withMessage('Password must be at least 6 characters long.', minLength(6)),
-
-                        containsUppercase: helpers.withMessage('Password must contain at least 1 uppercase letter.',function(value) {
-                        return /[A-Z]/.test(value)
-                        }),
-                        containsLowercase:helpers.withMessage('Password must contain at least 1 lowercase letter.',function(value) {
-                        return /[a-z]/.test(value)
-                        }),
-                        containsNumber: helpers.withMessage('Password must contain at least 1 number.',function(value) {
-                        return /[0-9]/.test(value)
-                        }),
-                        containsSpecial:helpers.withMessage('Password must contain at least one of the following: #?!@$%^&*- .',function(value) {
-                        return /[#?!@$%^&*-]/.test(value)
-                        })
-                    },
-                    confirm:{
-                        required: helpers.withMessage('This field cannot be empty', required), 
-                        sameAs: helpers.withMessage('Must match the New Password field.',sameAs(this.newpassword))
-                    }
+                if(!result.ok){
+                    console.log(result)
+                    return result
                 }
-                
-            }
-        },
-        methods:{
-            nextStep(nextStep){
+                return result.json()
 
-              this.activeStep = this.steps.find(el=> el == nextStep)
-            
-            },
-    
-            // async formSubmit(){
-                
-            //     if (this.v$.$invalid){
-            //         this.errorMessage = "Form has errors.";
-            //         this.submissionError = true;
-            //     } else { 
-            //       var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
-                    
-            //           const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-password",
-            //           {
-            //                 method: "POST",
-            //                 headers: {
-            //                     "Content-Type": "application/json",
-            //                     Authorization: "Bearer " + token
-            //                 },
-            //                 credentials: "include",
-            //                 body: JSON.stringify({ 
-            //                     newpassword:this.v$.newpassword.$model,
-            //                     password:this.v$.currentpassword.$model})
-            //             }
-            //         ).then(result =>{
-            //             return result
+            })
 
-            //         })
-                    
-            //         if(result.ok){
-            //             this.submissionError = false;
-            //             this.$router.replace('/employer/dashboard')
-            //         } else{
-            //             this.submissionError = true;
-            //             this.errorMessage = "An error occurred while processing your request. Make sure your current password is correct!"
-            //         }
-            //     }
+
+          if(this.employer){
+            this.activeStep = this.$store.getters.getRegistrationStep || this.employer.registrationstep;
+          }
+
+      },
+      components:{
+          CoverRow,
+          AlertError,
+          StepFormCard,
+          ChangePassword,
+          PersonalInformation,
+          CompanyDetails, 
+          PaymentMethod,
+          PaymentDetails, 
+          RegistrationComplete
+      }, 
+      data(){
+          return {
+              steps:["change-password","personal-information","company-details","payment-method","payment-details","registration-complete"],
+              activeStep:"",
+              employer:{},
+              token:"",
+              errorMessage:"",
+              submissionError:false,
+              formSubmitted:false,
               
+          }
+      },
+      methods:{
+          nextStep(nextStep){
 
-            // if(this.token){
-            //     console.log(this.token)
-            //     this.$cookies.set('com.bitjobs', this.token.token);
-                
-            //     if(!this.token.initialpasswordchanged){
-            //         this.$router.replace('/employer/change-password')
-            //     } else{
-            //         this.$router.replace('/employer/dashboard')
-            //     }
-
-            // }
-            // }
-        },
-        
-    }
+            this.activeStep = this.steps.find(el=> el == nextStep)
+          
+          },
+      },
+      
+  }
 </script>
 
 <style scoped>

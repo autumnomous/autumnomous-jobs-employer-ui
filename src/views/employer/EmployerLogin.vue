@@ -108,7 +108,7 @@ export default {
                 if(this.captchaResult){
                     await this.$store.dispatch("login", {email:this.login.email, password:this.login.password})
 
-                    if(this.$store.getters.getRegistrationStep != "complete"){
+                    if(this.$store.getters.getRegistrationStep != "registration-complete"){
                         this.$router.replace('/employer/registration')
                     } else{
                         this.$router.replace('/employer/dashboard')
