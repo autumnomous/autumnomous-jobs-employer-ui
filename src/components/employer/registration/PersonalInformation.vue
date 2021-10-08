@@ -56,6 +56,37 @@
                 </div>
 
                 <div class="form-group" >
+                    <label for="role" class="input-label">Facebook</label>
+
+                    <input v-model.lazy="v$.personalInformation.facebook.$model" type="text" class="form-control" name="role" id="role" aria-label="Role" :class="{ 'is-invalid': v$.personalInformation.facebook.$error}">
+                    
+                      <div class="input-errors" v-for="error of v$.personalInformation.facebook.$errors" :key="error.$uid">
+                        <div class="error-msg">{{ error.$message }}</div>
+                      </div>
+                </div>
+
+                <div class="form-group" >
+                    <label for="role" class="input-label">Twitter</label>
+
+                    <input v-model.lazy="v$.personalInformation.twitter.$model" type="text" class="form-control" name="role" id="role" aria-label="Role" :class="{ 'is-invalid': v$.personalInformation.twitter.$error}">
+                    
+                      <div class="input-errors" v-for="error of v$.personalInformation.twitter.$errors" :key="error.$uid">
+                        <div class="error-msg">{{ error.$message }}</div>
+                      </div>
+                </div>
+
+                <div class="form-group" >
+                    <label for="role" class="input-label">Instagram</label>
+
+                    <input v-model.lazy="v$.personalInformation.instagram.$model" type="text" class="form-control" name="role" id="role" aria-label="Role" :class="{ 'is-invalid': v$.personalInformation.instagram.$error}">
+                    
+                      <div class="input-errors" v-for="error of v$.personalInformation.instagram.$errors" :key="error.$uid">
+                        <div class="error-msg">{{ error.$message }}</div>
+                      </div>
+                </div>
+
+
+                <div class="form-group" >
                     <label for="role" class="input-label">Role</label>
 
                     <input v-model.lazy="v$.personalInformation.role.$model" type="text" class="form-control" name="role" id="role" aria-label="Role" :class="{ 'is-invalid': v$.personalInformation.role.$error}">
@@ -108,7 +139,10 @@ import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators
                     email:this.employer.email,
                     phoneNumber:"",
                     mobileNumber:"",
-                    role:""
+                    role:"",
+                    facebook:"",
+                    twitter:"",
+                    instagram:""
                 },
                 errorMessage:"",
                 submissionError:false
@@ -123,7 +157,10 @@ import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators
                     email:{required},
                     phoneNumber:{required},
                     mobileNumber:{required},
-                    role:{required}
+                    role:{required},
+                    facebook:{url},
+                    twitter:{url},
+                    instagram:{url}
                 }
                 
             }
@@ -151,7 +188,11 @@ import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators
                                 email:this.v$.personalInformation.email.$model, 
                                 phonenumber:this.v$.personalInformation.phoneNumber.$model, 
                                 mobilenumber:this.v$.personalInformation.mobileNumber.$model, 
-                                role:this.v$.personalInformation.role.$model})
+                                role:this.v$.personalInformation.role.$model,
+                                facebook: this.v$.personalInformation.facebook.$model,
+                                twitter: this.v$.personalInformation.twitter.$model,
+                                instagram: this.v$.personalInformation.instagram.$model
+                            })
                         }
                     )
 
