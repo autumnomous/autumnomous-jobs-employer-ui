@@ -20,7 +20,7 @@
 
 <script>
 
-import StepFormCard from '../../../components/ui/step-form/StepFormCard.vue'
+import TheCard from '../../../components/ui/TheCard.vue'
     export default {
         data(){
             return { 
@@ -28,7 +28,7 @@ import StepFormCard from '../../../components/ui/step-form/StepFormCard.vue'
             }
         },
         components:{ 
-            StepFormCard
+            TheCard
         },
         methods:{
             async formSubmit(){

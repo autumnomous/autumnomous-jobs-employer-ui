@@ -37,7 +37,7 @@
 
 
     import AlertError from '../../ui/AlertError.vue'
-    import StepFormCard from '../../ui/step-form/StepFormCard.vue'
+    import TheCard from '../../ui/TheCard.vue'
     import useVuelidate from '@vuelidate/core'
     import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators'
     export default {
@@ -47,7 +47,7 @@
             }
         },
         components:{
-            StepFormCard,
+            TheCard,
             AlertError
         },
         data(){

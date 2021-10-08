@@ -341,7 +341,7 @@
 <script>
     import StickyBlock from '@/components/employer/create-job/StickyBlock.vue';
     import PackagePurchase from '@/components/employer/PackagePurchase.vue';
-    import StepFormCard from '../../components/ui/step-form/StepFormCard.vue'
+    import TheCard from '../../components/ui/TheCard.vue'
     import LayoutDefault from '../../layouts/LayoutDefault.vue'
     import CKEditor from '@ckeditor/ckeditor5-vue'
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
@@ -389,7 +389,7 @@
         },
         components:{
           StickyBlock,
-            StepFormCard,
+            TheCard,
             ckeditor: CKEditor.component,
             PackagePurchase,
         },

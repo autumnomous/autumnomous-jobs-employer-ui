@@ -95,7 +95,7 @@
   import CoverRow from '../../components/ui/auth/CoverRow.vue'
   import AlertError from '../../components/ui/AlertError.vue'
   import RegistrationLayout from '../../layouts/RegistrationLayout.vue'
-  import StepFormCard from '../../components/ui/step-form/StepFormCard.vue'
+  import TheCard from '../../components/ui/TheCard.vue'
 
   import ChangePassword from '../../components/employer/registration/ChangePassword.vue'
   import PersonalInformation from '../../components/employer/registration/PersonalInformation.vue'
@@ -138,7 +138,7 @@
       components:{
           CoverRow,
           AlertError,
-          StepFormCard,
+          TheCard,
           ChangePassword,
           PersonalInformation,
           CompanyDetails, 

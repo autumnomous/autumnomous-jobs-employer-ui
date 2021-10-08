@@ -110,7 +110,7 @@
 
 <script>
 
-import StepFormCard from '../../../components/ui/step-form/StepFormCard.vue'
+import TheCard from '../../../components/ui/TheCard.vue'
 import AlertError from '../../ui/AlertError.vue'
 import useVuelidate from '@vuelidate/core'
 import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators'
@@ -124,7 +124,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
             }
         },
         components:{
-            StepFormCard,
+            TheCard,
             ckeditor: CKEditor.component,
             AlertError
         },data(){
