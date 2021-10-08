@@ -27,17 +27,17 @@
                 <div class="form-group" >
                     <label for="titleLabel" class="input-label">URL</label>
 
-                    <input v-model.lazy="v$.companyDetails.url.$model" type="text" class="form-control" name="location" id="location" aria-label="Location" :class="{ 'is-invalid': v$.companyDetails.url.$error}">
+                    <input v-model.lazy="v$.companyDetails.url.$model" type="text" class="form-control" name="location" id="location" aria-label="URL" :class="{ 'is-invalid': v$.companyDetails.url.$error}">
                     
                         <div class="input-errors" v-for="error of v$.companyDetails.url.$errors" :key="error.$uid">
-                        <div class="error-msg">{{ error.$message }}</div>
+                            <div class="error-msg">{{ error.$message }}</div>
                         </div>
                 </div>
 
                 <div class="form-group" >
                     <label for="titleLabel" class="input-label">Facebook</label>
 
-                    <input v-model.lazy="v$.companyDetails.socials.facebook.$model" type="text" class="form-control" name="location" id="location" aria-label="Location" :class="{ 'is-invalid': v$.companyDetails.socials.facebook.$error}">
+                    <input v-model.lazy="v$.companyDetails.socials.facebook.$model" type="text" class="form-control" name="location" id="location" aria-label="Facebook" :class="{ 'is-invalid': v$.companyDetails.socials.facebook.$error}">
                     
                         <div class="input-errors" v-for="error of v$.companyDetails.socials.facebook.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
@@ -47,7 +47,7 @@
                 <div class="form-group" >
                     <label for="titleLabel" class="input-label">Twitter</label>
 
-                    <input v-model.lazy="v$.companyDetails.socials.twitter.$model" type="text" class="form-control" name="location" id="location" aria-label="Location" :class="{ 'is-invalid': v$.companyDetails.socials.twitter.$error}">
+                    <input v-model.lazy="v$.companyDetails.socials.twitter.$model" type="text" class="form-control" name="location" id="location" aria-label="Twitter" :class="{ 'is-invalid': v$.companyDetails.socials.twitter.$error}">
                     
                         <div class="input-errors" v-for="error of v$.companyDetails.socials.twitter.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
@@ -57,7 +57,7 @@
                 <div class="form-group" >
                     <label for="titleLabel" class="input-label">Instagram</label>
 
-                    <input v-model.lazy="v$.companyDetails.socials.instagram.$model" type="text" class="form-control" name="location" id="location" aria-label="Location" :class="{ 'is-invalid': v$.companyDetails.socials.instagram.$error}">
+                    <input v-model.lazy="v$.companyDetails.socials.instagram.$model" type="text" class="form-control" name="location" id="location" aria-label="Instagram" :class="{ 'is-invalid': v$.companyDetails.socials.instagram.$error}">
                     
                         <div class="input-errors" v-for="error of v$.companyDetails.socials.instagram.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
@@ -75,7 +75,7 @@
                     <div class="form-group">
                     <label class="input-label">Describe your company.</label>
                     
-                    <ckeditor :editor="editor" v-model="v$.companyDetails.description.$model"></ckeditor>
+                    <ckeditor :editor="editor" v-model="v$.companyDetails.description.$model" :class="{ 'is-invalid': v$.companyDetails.description.$error}"></ckeditor>
 
                     <div class="input-errors" v-for="error of v$.companyDetails.description.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
@@ -85,11 +85,12 @@
                 <div class="form-group">
                     <label class="input-label">Any other details about your company that applicants should know about?</label>
                     
-                    <ckeditor :editor="editor" v-model="v$.companyDetails.extraDetails.$model"></ckeditor>
-                
                     <div class="input-errors" v-for="error of v$.companyDetails.extraDetails.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                     </div>
+
+                    <ckeditor :editor="editor" v-model="v$.companyDetails.extraDetails.$model" :class="{ 'is-invalid': v$.companyDetails.extraDetails.$error}"></ckeditor>
+                
                 </div>
 
 
@@ -202,7 +203,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
                     if(result.ok){
                         this.submissionError = false;
                         
-                        this.$emit("next-step","select-payment-method")
+                        this.$emit("next-step","payment-method")
                     } else { 
                         console.log("error")
                     }

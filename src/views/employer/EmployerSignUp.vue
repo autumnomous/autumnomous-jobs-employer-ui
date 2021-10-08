@@ -3,10 +3,10 @@
       <CoverRow>
         
         <template v-slot:sidecontent>
+          <alert-error v-if="resultError" message="An error occurred. Please try again later."></alert-error>
         </template>
 
-            <alert-success v-if="resultOk" message="Success! You should get an email from us shortly."></alert-success>
-            <alert-error v-if="resultError" message="An error occurred. Please try again later."></alert-error>
+            
         <!-- Form -->
             <form class="js-validate" @submit.prevent="formSubmit">
               <!-- Title -->
@@ -105,7 +105,6 @@
                 email:"",
                 firstname:"",
                 lastname:"",
-                resultOk:false,
                 resultError:false,
                 captchaResult:null
             }
@@ -149,15 +148,13 @@
                   })
 
             if(result.ok){
-              this.resultOk = true;
               this.resultError = false;
-              setTimeout(()=>{
-                this.$router.replace('/employer/login')
-              },10000)
+              
+              this.$router.replace('/employer/login')
+              
               
             }
             else{
-              this.resultOk = false;
               this.resultError = true;
             }
               }

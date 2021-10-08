@@ -79,24 +79,6 @@
             this.$emit('update:layout', LayoutDefault);
             // this.token = this.$cookies.get('com.bitjobs');
           
-            // this.employer = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get",
-            //     {
-            //         method: "GET",
-            //         headers: {
-            //             "Content-Type": "application/json",
-            //             Authorization: "Bearer " + this.token
-            //         }
-            //     }
-            //     ).then(result =>{
-
-            //         if(!result.ok){
-            //             console.log(result)
-            //             return result
-            //         }
-            //         return result.json()
-
-            //     })
-
 
         },
         data(){

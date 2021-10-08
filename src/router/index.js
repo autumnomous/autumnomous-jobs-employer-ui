@@ -42,16 +42,21 @@ const routes = [
   },
   {
     path: '/employer/dashboard',
-    name: 'Employer Dashbaord',
+    name: 'Employer Dashboard',
     component:Dashboard,
     beforeEnter:(to, from, next)=>{
-       console.log(Vue.$cookies)
+      //  console.log(Vue.$cookies)
+       next()
     }
   },
   {
     path: '/employer/account',
     name: 'Account',
-    component: AccountView
+    component: AccountView,
+    beforeEnter:(to, from, next)=>{
+      //  console.log(Vue.$cookies)
+       next()
+    }
   },
   {
     path:'/employer/job-list/:slug',
