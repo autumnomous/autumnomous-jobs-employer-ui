@@ -1,47 +1,31 @@
 <template>
-     <!-- Card -->
-        <div class="card">
-            <div class="card-header">
-            <h5 class="card-title">Change your password</h5>
-            </div>
+     
+    <change-password buttonText="Save" headerText="Change Password" :emitNextStep="false"></change-password>
 
-            <!-- Body -->
-            <div class="card-body">
-            </div>
-            <!-- End Body -->
-        </div>
-        <!-- End Card -->
 
-      <!-- Card -->
-        <div class="card">
-            <div class="card-header">
-            <h5 class="card-title">Delete your account</h5>
-            </div>
+    <the-card>
 
-            <!-- Body -->
-            <div class="card-body">
-            <p class="card-text">When you delete your account, you lose access to Front account services, and we permanently delete your personal data.</p>
+        <template v-slot:cardheader>Delete your account</template>
+        <template v-slot:cardbody>
+            <p class="card-text">When you delete your account, you lose access to BiT Jobs account services, and we permanently delete your personal data.</p>
+        </template>
 
-            <div class="form-group">
-                <!-- Custom Checkbox -->
-                <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="deleteAccountCheckbox">
-                <label class="custom-control-label" for="deleteAccountCheckbox">Confirm that I want to delete my account.</label>
-                </div>
-                <!-- End Custom Checkbox -->
-            </div>
+        <template v-slot:cardfooter>
+            <button type="submit" class="btn btn-danger transition-3d-hover">Delete</button>
+        </template>
 
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-danger transition-3d-hover">Delete</button>
-            </div>
-            </div>
-            <!-- End Body -->
-        </div>
-        <!-- End Card -->
+    </the-card>
+
 </template>
 
 <script>
+    import ChangePassword from '../../registration/ChangePassword.vue'
+    import TheCard from '../../../ui/TheCard.vue'
     export default {
+        components: { 
+            ChangePassword,
+            TheCard
+        }
         
     }
 </script>

@@ -1,7 +1,7 @@
 <template>
     
-    <step-form-card id="update-password" >
-        <template v-slot:cardheader>Update Password</template>
+    <the-card id="update-password" >
+        <template v-slot:cardheader>{{headerText}}</template>
         <template v-slot:cardbody>
 
                 <alert-error v-if="submissionError" :message="errorMessage"></alert-error>
@@ -43,27 +43,43 @@
 
                 <div class="ml-auto">
                     <button type="button" class="btn btn-primary" id="change-password-button" @click="formSubmit">
-                    Save and continue <i class="fas fa-angle-right ml-1"> </i>
+                    {{buttonText}}<i class="fas fa-angle-right ml-1"> </i>
                     </button>
                 </div>
         </template>
-    </step-form-card>
+    </the-card>
 </template>
 
 <script>
 
 import AlertError from '../../ui/AlertError.vue'
-import StepFormCard from '../../ui/step-form/StepFormCard.vue'
+import TheCard from '../../ui/TheCard.vue'
 import useVuelidate from '@vuelidate/core'
 import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators'
     export default {
-          setup(){
+        setup(){
             return {
-                 v$: useVuelidate()
+                v$: useVuelidate()
+
             }
         },
+        props:{
+            buttonText:{
+                type: String,
+                default:"Save and continue"
+            },
+            headerText:{
+                type:String,
+                default:"Update Password"
+            },
+            emitNextStep:{
+                type:Boolean,
+                default:true
+            }
+            
+        },
         components:{
-            StepFormCard,
+            TheCard,
             AlertError
         },
          data(){
@@ -136,7 +152,14 @@ import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators
                     if(result.ok){
                         this.submissionError = false;
                         
-                        this.$emit("next-step","personal-information")
+                    
+                        if(this.emitNextStep){
+                            this.$emit("next-step","personal-information")
+                        } else { 
+                            this.newpassword = "";
+                            this.password = "";
+                            this.confirm = "";
+                        }
                     } else { 
                         console.log("error")
                     }
