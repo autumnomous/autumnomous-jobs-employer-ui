@@ -153,7 +153,6 @@
                 })
 
             if(this.employer){ 
-                console.log(this.employer)
                 this.firstname = this.employer.firstname;
                 this.lastname = this.employer.lastname;
                 this.email = this.employer.email;

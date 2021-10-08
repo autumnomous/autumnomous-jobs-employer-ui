@@ -118,7 +118,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
     export default {
-         setup(){
+        setup(){
             return {
                  v$: useVuelidate()
             }
@@ -127,7 +127,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
             TheCard,
             ckeditor: CKEditor.component,
             AlertError
-        },data(){
+        },
+        data(){
             return {
                 editor: ClassicEditor,
                 companyDetails:{

@@ -19,8 +19,8 @@
 </template>
 
 <script>
-    import ChangePassword from '../../registration/ChangePassword.vue'
-    import TheCard from '../../../ui/TheCard.vue'
+    import ChangePassword from '../registration/ChangePassword.vue'
+    import TheCard from '../../ui/TheCard.vue'
     export default {
         components: { 
             ChangePassword,

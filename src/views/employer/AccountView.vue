@@ -70,8 +70,8 @@
 <script>
     import AccountNav from '../../components/employer/account/AccountNav.vue'
     import LayoutDefault from '../../layouts/LayoutDefault.vue'
-    import TheBasicInfo from '../../components/employer/account/personal-info/TheBasicInfo.vue'
-    import TheLoginSecurity from '../../components/employer/account/personal-info/TheLoginSecurity.vue'
+    import PersonalInfo from '../../components/employer/account/PersonalInfo.vue'
+    import LoginSecurity from '../../components/employer/account/LoginSecurity.vue'
     
     export default{
 
@@ -90,8 +90,8 @@
         },
         components: { 
             AccountNav,
-            TheBasicInfo,
-            TheLoginSecurity
+            PersonalInfo,
+            LoginSecurity
         },
         methods:{
             changeActive(newActive){
