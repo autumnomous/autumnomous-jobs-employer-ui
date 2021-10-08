@@ -11,7 +11,7 @@
           <div id="formContainer" class="col-lg-8" v-show="!formSubmitted">
             <!-- Content Step Form -->
             <div id="postJobStepFormContent">
-                <step-form-card :active="activeStep === '1'" id="step-1" >
+                <the-card :active="activeStep === '1'" id="step-1" >
                   <template v-slot:cardheader>Choose a Package</template>
                     <template v-slot:cardbody>
 
@@ -26,9 +26,9 @@
                                 </button>
                             </div>
                         </template>
-                </step-form-card>
+                </the-card>
 
-                <step-form-card :active="activeStep === '2'" id="step-2">
+                <the-card :active="activeStep === '2'" id="step-2">
                         <template v-slot:cardheader>Job details</template>
                         <template v-slot:cardbody>
                                <!-- Form Group -->
@@ -87,9 +87,9 @@
                                 </button>
                             </div>
                         </template>
-                </step-form-card>
+                </the-card>
 
-                <step-form-card :active="activeStep === '3'" id="step-3">
+                <the-card :active="activeStep === '3'" id="step-3">
                     <template v-slot:cardheader>What's the pay?</template>
                     <template v-slot:cardbody>
                           <div class="row mx-n2">
@@ -157,9 +157,9 @@
                             </button>
                         </div>
                     </template>
-                </step-form-card>
+                </the-card>
 
-                <step-form-card :active="activeStep === '4'" id="step-4">
+                <the-card :active="activeStep === '4'" id="step-4">
                     <template v-slot:cardheader>Job description</template>
                     <template v-slot:cardbody>
                         <!-- Form Group -->
@@ -211,9 +211,9 @@
                             </button>
                         </div>
                     </template>
-                </step-form-card>
+                </the-card>
 
-                <step-form-card :active="activeStep === '5'" id="step-5">
+                <the-card :active="activeStep === '5'" id="step-5">
                     <template v-slot:cardheader>Preview job</template>
                     <template v-slot:cardbody>
                         <p>By pressing confirm, you agree that this job will be posted and applications will be processed in accordance with BiT Job's <a href="#">Cookie Policy</a>, <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>. You consent to BiT Job informing a user that you have opened, viewed or made a decision regarding the user's application.</p>
@@ -302,7 +302,7 @@
                             </button>
                         </div>
                     </template>
-                </step-form-card>
+                </the-card>
 
             </div>
             <!-- End Content Step Form -->

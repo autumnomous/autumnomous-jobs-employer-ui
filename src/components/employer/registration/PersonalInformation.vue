@@ -1,5 +1,5 @@
 <template>
-    <step-form-card id="personal-information">
+    <the-card id="personal-information">
 
         <template v-slot:cardheader>Enter Your Personal Information</template>
         <template v-slot:cardbody>
@@ -108,7 +108,7 @@
                     </button>
                 </div>
         </template>
-    </step-form-card>
+    </the-card>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-       <step-form-card id="payment-method">
+       <the-card id="payment-method">
 
             <template v-slot:cardheader>Select Payment Method</template>
             <template v-slot:cardbody>
@@ -30,7 +30,7 @@
                     </div>
             </template>
 
-        </step-form-card>
+        </the-card>
 </template>
 
 <script>
