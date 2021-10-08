@@ -39,7 +39,7 @@
                 
                     <div class="phone-container">
                         <div class="input-group align-items-center">
-                            <input type="text" class="js-masked-input form-control" name="phone" id="phoneLabel" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" v-model="mobile"
+                            <input type="text" class="js-masked-input form-control" name="phone" id="phoneLabel" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" v-model="mobilenumber"
                                     data-hs-mask-options='{
                                     "template": "+0(000)000-00-00"
                                     }'>
@@ -56,7 +56,7 @@
 
                     <div class="phone-container">
                         <div class="input-group align-items-center">
-                            <input type="text" class="js-masked-input form-control" name="phone" id="phoneLabel" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" v-model="work"
+                            <input type="text" class="js-masked-input form-control" name="phone" id="phoneLabel" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" v-model="phonenumber"
                                     data-hs-mask-options='{
                                     "template": "+0(000)000-00-00"
                                     }'>
@@ -121,7 +121,7 @@
         <div class="card-footer d-flex justify-content-end">
         <a class="btn btn-white" @click="cancel">Cancel</a>
         <span class="mx-2"></span>
-        <a class="btn btn-primary" href="javascript:;">Save Changes</a>
+        <a class="btn btn-primary" @click="formSubmit">Save Changes</a>
         </div>
         <!-- End Footer -->
     </div>
@@ -157,12 +157,12 @@
                 this.firstname = this.employer.firstname;
                 this.lastname = this.employer.lastname;
                 this.email = this.employer.email;
-                this.mobile = this.employer.mobilenumber;
-                this.work = this.employer.phonenumber;
+                this.mobilenumber = this.employer.mobilenumber;
+                this.phonenumber = this.employer.phonenumber;
                 this.role = this.employer.role;
-                this.facebook = this.employer.facebook
-                this.twitter = this.employer.twitter
-                this.instagram = this.employer.instagram
+                this.facebook = this.employer.facebook;
+                this.twitter = this.employer.twitter;
+                this.instagram = this.employer.instagram;
             }
 
        },
@@ -174,8 +174,8 @@
                 firstname:"",
                 lastname:"",
                 email:"",
-                mobile:"",
-                work:"",
+                mobilenumber:"",
+                phonenumber:"",
                 role:"",
                 facebook:"",
                 twitter:"",
@@ -189,8 +189,43 @@
                 this.lastname = this.employer.lastname;
                 this.email = this.employer.email;
                 this.mobile = this.employer.mobilenumber;
-                this.work = this.employer.phonenumber;
+                this.phonenumber = this.employer.phonenumber;
                 this.role = this.employer.role;
+                this.facebook = this.employer.facebook;
+                this.twitter = this.employer.twitter;
+                this.instagram = this.employer.instagram;
+            },
+            async formSubmit(){
+                
+                this.employer = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-account",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: "Bearer " + this.token
+                        }, 
+                        body: JSON.stringify({
+                            firstname: this.firstname, 
+                            lastname: this.lastname,
+                            email: this.email, 
+                            mobilenumber: this.mobilenumber,
+                            phonenumber: this.phonenumber,
+                            role: this.role, 
+                            facebook: this.facebook, 
+                            twitter: this.twitter, 
+                            instagram: this.instagram
+                        })
+                    }
+                    ).then(result =>{
+
+                        if(!result.ok){
+                            console.log(result)
+                            return result
+                        }
+                        return result.json()
+
+                    })
+
             }
         }
     }
