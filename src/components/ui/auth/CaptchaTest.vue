@@ -41,7 +41,7 @@
                 this.canvas = this.$refs.textCanvas.getContext('2d');
                 this.canvas.width = this.captcha.length;
                 this.canvas.font = '25px serif';
-                this.canvas.fillText(this.captcha, 150, 100);
+                this.canvas.fillText(this.captcha, 100, 100);
                 this.$refs.captchaImage.src = this.canvas.canvas.toDataURL();
                 return this.captcha;
             },

@@ -19,24 +19,13 @@
                 <!-- List -->
                 <ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2 mb-4">
                 <li class="nav-item">
-                    <a class="nav-link" @click='changeActive("the-basic-info")' :class="{'active': isActive=='the-basic-info'}">
+                    <a class="nav-link" @click='changeActive("personal-info")' :class="{'active': isActive=='personal-info'}">
                     <i class="fas fa-id-card nav-icon"></i> Basic info
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" @click='changeActive("the-login-security")' :class="{'active': isActive=='the-login-security'}">
+                    <a class="nav-link" @click='changeActive("login-security")' :class="{'active': isActive=='login-security'}">
                     <i class="fas fa-shield-alt nav-icon"></i> Login &amp; security
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="account-notifications.html">
-                    <i class="fas fa-bell nav-icon"></i> Notifications
-                    <span class="badge badge-soft-dark badge-pill nav-link-badge">1</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="account-preferences.html">
-                    <i class="fas fa-sliders-h nav-icon"></i> Preferences
                     </a>
                 </li>
             </ul>
@@ -47,7 +36,7 @@
         <!-- List -->
         <ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2 mb-4">
             <li class="nav-item">
-                <a class="nav-link @@if(link=='account-orders.html'){active}" href="account-orders.html">
+                <a class="nav-link" @click='changeActive("company-details")' :class="{'active': isActive=='company-details'}">
                 <i class="fas fa-shopping-basket nav-icon"></i> Your Company
                 </a>
             </li>
@@ -99,7 +88,7 @@
     export default {
         data(){
             return{
-                isActive:"the-basic-info"
+                isActive:"personal-info"
             }
         },
         methods:{
