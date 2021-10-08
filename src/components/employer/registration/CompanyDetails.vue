@@ -69,6 +69,9 @@
 
                     <input type="file" class="form-control" name="logo" id="logo" aria-label="Logo" @change="onFileChange">
                     
+                     <div>
+                        <img v-if="companyDetails.logo" :src="companyDetails.logo" :alt="companyDetails.name + ' logo'">
+                    </div>
                     
                 </div>
 
@@ -123,6 +126,41 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
                  v$: useVuelidate()
             }
         },
+        async created(){
+            this.token = this.$cookies.get('com.bitjobs');
+            this.company = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/company",
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + this.token
+                    }
+                }
+                ).then(result =>{
+
+                    if(!result.ok){
+                        console.log(result)
+                        return result
+                    }
+                    return result.json()
+
+                })
+            
+            if(this.company){
+
+                this.companyDetails.companyName = this.company.name;
+                this.companyDetails.location = this.company.location;
+                this.companyDetails.url = this.company.url;
+                this.companyDetails.socials.facebook = this.company.facebook;
+                this.companyDetails.socials.twitter = this.company.twitter;
+                this.companyDetails.socials.instagram = this.company.instagram;
+                this.companyDetails.description = this.company.description;
+                this.companyDetails.logo = this.company.logo;
+                this.companyDetails.extraDetails = this.company.extradetails;
+                
+            }
+
+        },
         components:{
             TheCard,
             ckeditor: CKEditor.component,
@@ -131,6 +169,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
         data(){
             return {
                 editor: ClassicEditor,
+                company:{},
                 companyDetails:{
                     companyName:"",
                     location:"",
@@ -203,8 +242,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
                     if(result.ok){
                         this.submissionError = false;
-                        
-                        this.$emit("next-step","payment-method")
+                       
                     } else { 
                         console.log("error")
                     }
@@ -247,6 +285,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+    div img{
+            width:100px;
+            height:100px;
+    }
 </style>

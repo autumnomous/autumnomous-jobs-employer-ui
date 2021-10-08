@@ -72,6 +72,7 @@
     import LayoutDefault from '../../layouts/LayoutDefault.vue'
     import PersonalInfo from '../../components/employer/account/PersonalInfo.vue'
     import LoginSecurity from '../../components/employer/account/LoginSecurity.vue'
+    import CompanyDetails from '../../components/employer/registration/CompanyDetails.vue'
     
     export default{
 
@@ -83,7 +84,7 @@
         },
         data(){
             return { 
-                activeCard: "the-basic-info",
+                activeCard: "personal-info",
                 token:"",
                 employer:{}
             }
@@ -91,7 +92,8 @@
         components: { 
             AccountNav,
             PersonalInfo,
-            LoginSecurity
+            LoginSecurity,
+            CompanyDetails
         },
         methods:{
             changeActive(newActive){
