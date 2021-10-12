@@ -9,6 +9,7 @@
                 
                 <!-- Select -->
                 <select v-model="v$.paymentMethod" id="paymentmethod" class="js-custom-select custom-select dropdown-toggle" size="1" style="opacity: 1;" name="paymentmethod" :class="{ 'is-invalid': v$.paymentMethod.$error}">
+                    <option value="" selected>Select One</option>
                     <option value="ach">ACH</option>
                     <option value="credit">Credit Card</option>
                     <option value="paypal">Paypal</option>
@@ -57,7 +58,7 @@
         },
         validations(){
             return { 
-                paymentMethod:{}
+                paymentMethod:{required}
             }
         },
         methods:{ 

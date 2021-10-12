@@ -72,7 +72,7 @@
             <!-- Content Step Form -->
             <div id="postJobStepFormContent">
 
-                <component :is="activeStep" @next-step="nextStep" :employer="employer"></component>
+                <component :is="activeStep" @next-step="nextStep" :employer="employer" :active="activeStep"></component>
 
             </div>
             <!-- End Content Step Form -->

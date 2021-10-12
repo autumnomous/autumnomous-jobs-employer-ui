@@ -26,8 +26,12 @@
 
                 <div class="form-group" >
                     <label for="titleLabel" class="input-label">URL</label>
+                    
 
-                    <input v-model.lazy="v$.companyDetails.url.$model" type="text" class="form-control" name="location" id="location" aria-label="URL" :class="{ 'is-invalid': v$.companyDetails.url.$error}">
+                    <div class="input-group mb-3" >
+                        <span class="input-group-text" >https://www.</span>
+                        <input v-model.lazy="v$.companyDetails.url.$model" type="text" class="form-control" name="location" id="location" aria-label="URL" :class="{ 'is-invalid': v$.companyDetails.url.$error}">   
+                    </div>
                     
                         <div class="input-errors" v-for="error of v$.companyDetails.url.$errors" :key="error.$uid">
                             <div class="error-msg">{{ error.$message }}</div>
@@ -37,31 +41,40 @@
                 <div class="form-group" >
                     <label for="titleLabel" class="input-label">Facebook</label>
 
-                    <input v-model.lazy="v$.companyDetails.socials.facebook.$model" type="text" class="form-control" name="location" id="location" aria-label="Facebook" :class="{ 'is-invalid': v$.companyDetails.socials.facebook.$error}">
-                    
-                        <div class="input-errors" v-for="error of v$.companyDetails.socials.facebook.$errors" :key="error.$uid">
+                     <div class="input-group mb-3" >
+                        <span class="input-group-text" >https://facebook.com/</span>
+                        <input v-model.lazy="v$.companyDetails.socials.facebook.$model" type="text" class="form-control" name="location" id="location" aria-label="Facebook" :class="{ 'is-invalid': v$.companyDetails.socials.facebook.$error}">
+                     </div>
+
+                    <div class="input-errors" v-for="error of v$.companyDetails.socials.facebook.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
-                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group" >
                     <label for="titleLabel" class="input-label">Twitter</label>
 
-                    <input v-model.lazy="v$.companyDetails.socials.twitter.$model" type="text" class="form-control" name="location" id="location" aria-label="Twitter" :class="{ 'is-invalid': v$.companyDetails.socials.twitter.$error}">
-                    
-                        <div class="input-errors" v-for="error of v$.companyDetails.socials.twitter.$errors" :key="error.$uid">
+                    <div class="input-group mb-3" >
+                        <span class="input-group-text" >https://twitter.com/</span>
+                        <input v-model.lazy="v$.companyDetails.socials.twitter.$model" type="text" class="form-control" name="location" id="location" aria-label="Twitter" :class="{ 'is-invalid': v$.companyDetails.socials.twitter.$error}">
+                    </div>
+
+                    <div class="input-errors" v-for="error of v$.companyDetails.socials.twitter.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
-                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group" >
                     <label for="titleLabel" class="input-label">Instagram</label>
 
-                    <input v-model.lazy="v$.companyDetails.socials.instagram.$model" type="text" class="form-control" name="location" id="location" aria-label="Instagram" :class="{ 'is-invalid': v$.companyDetails.socials.instagram.$error}">
-                    
-                        <div class="input-errors" v-for="error of v$.companyDetails.socials.instagram.$errors" :key="error.$uid">
+                    <div class="input-group mb-3" >
+                        <span class="input-group-text" >https://instagram.com/</span>
+                        <input v-model.lazy="v$.companyDetails.socials.instagram.$model" type="text" class="form-control" name="location" id="location" aria-label="Instagram" :class="{ 'is-invalid': v$.companyDetails.socials.instagram.$error}">
+                    </div>
+
+                    <div class="input-errors" v-for="error of v$.companyDetails.socials.instagram.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
-                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group" >
@@ -196,11 +209,11 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
                  companyDetails:{
                     companyName:{required},
                     location:{},
-                    url:{required, url},
+                    url:{required},
                     socials:{
-                        facebook:{url},
-                        twitter:{url},
-                        instagram:{url},
+                        facebook:{},
+                        twitter:{},
+                        instagram:{},
                     },
                     description:{},
                     logo:{},
@@ -230,7 +243,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
                             body: JSON.stringify({ 
                                 name:this.v$.companyDetails.companyName.$model,
                                 location:this.v$.companyDetails.location.$model,
-                                url:this.v$.companyDetails.url.$model, 
+                                url:"https://www." + this.v$.companyDetails.url.$model, 
                                 facebook:this.v$.companyDetails.socials.facebook.$model, 
                                 twitter:this.v$.companyDetails.socials.twitter.$model, 
                                 instagram:this.v$.companyDetails.socials.instagram.$model,
@@ -242,7 +255,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
                     if(result.ok){
                         this.submissionError = false;
-                       
+                       this.$emit("next-step","payment-method")
                     } else { 
                         console.log("error")
                     }
