@@ -55,10 +55,9 @@
             <div class="col-lg-9">
                 
                 <keep-alive>
-                    <component :is="activeCard" ></component>
+                    <component :is="activeCard"></component>
                 </keep-alive>
                 
-               
             </div>
         </div>
         <!-- End Row -->
@@ -70,28 +69,45 @@
 <script>
     import AccountNav from '../../components/employer/account/AccountNav.vue'
     import LayoutDefault from '../../layouts/LayoutDefault.vue'
-    import PersonalInfo from '../../components/employer/account/PersonalInfo.vue'
+    import PersonalInformation from '../../components/employer/account/PersonalInformation.vue'
     import LoginSecurity from '../../components/employer/account/LoginSecurity.vue'
-    import CompanyDetails from '../../components/employer/registration/CompanyDetails.vue'
+    import CompanyDetails from '../../components/employer/account/CompanyDetails.vue'
     
     export default{
 
         async created(){
             this.$emit('update:layout', LayoutDefault);
-            // this.token = this.$cookies.get('com.bitjobs');
-          
+            this.token = this.$cookies.get('com.bitjobs');
+
+            this.employer = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get",
+            {
+                  method: "GET",
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + this.token
+                  }
+              }
+            ).then(result =>{
+
+                if(!result.ok){
+                    console.log(result)
+                    return result
+                }
+                return result.json()
+
+            })
 
         },
         data(){
             return { 
-                activeCard: "personal-info",
+                activeCard: "personal-information",
                 token:"",
                 employer:{}
             }
         },
         components: { 
             AccountNav,
-            PersonalInfo,
+            PersonalInformation,
             LoginSecurity,
             CompanyDetails
         },

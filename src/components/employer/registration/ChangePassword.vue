@@ -1,6 +1,6 @@
 <template>
     
-    <the-card id="update-password" >
+    <the-card id="update-password" :active="true">
         <template v-slot:cardheader>{{headerText}}</template>
         <template v-slot:cardbody>
 

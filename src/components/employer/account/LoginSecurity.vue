@@ -3,15 +3,15 @@
     <change-password buttonText="Save" headerText="Change Password" :emitNextStep="false"></change-password>
 
 
-    <the-card>
+    <the-card :active="true">
 
-        <template v-slot:cardheader>Delete your account</template>
+        <template v-slot:cardheader>Deactivate your account</template>
         <template v-slot:cardbody>
-            <p class="card-text">When you delete your account, you lose access to BiT Jobs account services, and we permanently delete your personal data.</p>
+            <p class="card-text">When you deactivate your account, you lose access to BiT Jobs account services until you come back.</p>
         </template>
 
         <template v-slot:cardfooter>
-            <button type="submit" class="btn btn-danger transition-3d-hover">Delete</button>
+            <button type="submit" class="btn btn-danger transition-3d-hover">Deactivate</button>
         </template>
 
     </the-card>

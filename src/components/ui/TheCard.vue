@@ -1,6 +1,6 @@
 <template>
     <!-- Card -->
-    <div :id="id" class="card">
+    <div :id="id" class="card" v-if="active">
         <!-- Header -->
         <div class="card-header bg-img-hero py-4" style="background-image: url(../../../public/assets/svg/components/abstract-shapes-21.svg);">
             <div class="flex-grow-1">
@@ -31,6 +31,10 @@
 export default {
     props:{
         id:String,
+        active:{
+            type: Boolean,
+            default:false
+            }
     }
 }
 </script>

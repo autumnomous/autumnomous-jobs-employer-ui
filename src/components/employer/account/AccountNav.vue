@@ -19,7 +19,7 @@
                 <!-- List -->
                 <ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2 mb-4">
                 <li class="nav-item">
-                    <a class="nav-link" @click='changeActive("personal-info")' :class="{'active': isActive=='personal-info'}">
+                    <a class="nav-link" @click='changeActive("personal-information")' :class="{'active': isActive=='personal-information'}">
                     <i class="fas fa-id-card nav-icon"></i> Basic info
                     </a>
                 </li>

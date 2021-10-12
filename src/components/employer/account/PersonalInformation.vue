@@ -1,13 +1,10 @@
 <template>
-     <!-- Card -->
-    <div class="card mb-3 mb-lg-5">
-        <div class="card-header">
-        <h5 class="card-title">Basic info</h5>
-        </div>
 
-        <!-- Body -->
-        <div class="card-body">
-        <form>
+    <the-card :active="true">
+
+        <template v-slot:cardheader>Personal Information</template>
+        <template v-slot:cardbody>
+            <form>
             <!-- Form Group -->
             <div class="row form-group">
             <label for="firstNameLabel" class="col-sm-3 col-form-label input-label">Full name <i class="far fa-question-circle text-body ml-1" data-toggle="tooltip" data-placement="top" title="Displayed on public forums, such as Front."></i></label>
@@ -39,34 +36,36 @@
                 
                     <div class="phone-container">
                         <div class="input-group align-items-center">
+                            <div class="input-group-append">
+
+                                <span class="phone-type" name="phoneSelect">Mobile</span>
+                        
+                            </div>
                             <input type="text" class="js-masked-input form-control" name="phone" id="phoneLabel" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" v-model="mobilenumber"
                                     data-hs-mask-options='{
                                     "template": "+0(000)000-00-00"
                                     }'>
 
                             
-                            <div class="input-group-append">
-
-                                <span class="phone-type" name="phoneSelect">Mobile</span>
-                        
-                            </div>
+                            
                         </div>
 
                     </div>
 
                     <div class="phone-container">
                         <div class="input-group align-items-center">
+                            <div class="input-group-append">
+
+                                <span class="phone-type" name="phoneSelect">Work</span>
+                        
+                            </div>
                             <input type="text" class="js-masked-input form-control" name="phone" id="phoneLabel" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" v-model="phonenumber"
                                     data-hs-mask-options='{
                                     "template": "+0(000)000-00-00"
                                     }'>
 
                             
-                            <div class="input-group-append">
-
-                                <span class="phone-type" name="phoneSelect">Work</span>
-                        
-                            </div>
+                            
                         </div>
 
                     </div>
@@ -80,8 +79,8 @@
             <div class="row form-group" >
                 <label for="role" class="col-sm-3 col-form-label input-label">Facebook</label>
 
-                <div class="col-sm-9">
-
+                <div class="col-sm-9 input-group">
+                    <span class="input-group-text" >https://facebook.com/</span>
                     <input v-model.lazy="facebook" type="text" class="form-control" name="role" id="role" aria-label="Facebook">
                 </div>
             </div>
@@ -89,8 +88,8 @@
             <div class="row form-group" >
                 <label for="role" class="col-sm-3 col-form-label input-label">Twitter</label>
 
-                <div class="col-sm-9">
-
+                <div class="col-sm-9 input-group">
+                    <span class="input-group-text" >https://twitter.com/</span>
                     <input v-model.lazy="twitter" type="text" class="form-control" name="role" id="role" aria-label="Twitter">
                 </div>
             </div>
@@ -98,8 +97,8 @@
             <div class="row form-group" >
                 <label for="role" class="col-sm-3 col-form-label input-label">Instagram</label>
 
-                <div class="col-sm-9">
-
+                <div class="col-sm-9 input-group">
+                    <span class="input-group-text" >https://instagram.com/</span>
                     <input v-model.lazy="instagram" type="text" class="form-control" name="role" id="role" aria-label="Instagram">
                 </div>
             </div>
@@ -110,27 +109,57 @@
 
                     <div class="col-sm-9">
 
-                        <input v-model.lazy="role" type="text" class="form-control" name="role" id="role" aria-label="Role">
+                         <!-- Select -->
+                        <select v-model="role" class="js-custom-select custom-select dropdown-toggle" size="1" style="opacity: 1;" name="role">
+                            <option value="" selected>Select One</option>
+                            <option value="administrator">Administrator</option>
+                            <option value="assistant-manager">Assistant Manager</option>
+                            <option value="ceo">CEO</option>
+                            <option value="chief">Chief</option>
+                            <option value="coordinator">Coordinator</option>
+                            <option value="controller">Controller</option>
+                            <option value="director">Director</option>
+                            <option value="executive">Executive</option>
+                            <option value="foreman">Foreman</option>
+                            <option value="founder">Founder</option>
+                            <option value="head">Head</option>
+                            <option value="lead">Lead</option>
+                            <option value="manager">Manager</option>
+                            <option value="managing-member">Managing Member</option>
+                            <option value="managing-partner">Managing Partner</option>
+                            <option value="officer">Officer</option>
+                            <option value="organizer">Organizer</option>
+                            <option value="owner">Owner</option>
+                            <option value="president">President</option>
+                            <option value="principal">Principal</option>
+                            <option value="proprietor">Proprietor</option>
+                            <option value="supervisor">Supervisor</option>
+                            <option value="superintendent">Superintendent</option>
+                            <option value="team-leader">Team Leader</option>
+                        </select>
+                        <!-- End Select -->
                     </div>
             </div>
         </form>
-        </div>
-        <!-- End Body -->
+        </template>
 
-        <!-- Footer -->
-        <div class="card-footer d-flex justify-content-end">
-        <a class="btn btn-white" @click="cancel">Cancel</a>
-        <span class="mx-2"></span>
-        <a class="btn btn-primary" @click="formSubmit">Save Changes</a>
-        </div>
-        <!-- End Footer -->
-    </div>
-    <!-- End Card -->
+        <template v-slot:cardfooter>
+            <a class="btn btn-white" @click="cancel">Cancel</a>
+            <span class="mx-2"></span>
+            <a class="btn btn-primary" @click="formSubmit">Save Changes</a>
+        </template>
+    </the-card>
+
+
 </template>
 
 <script>
+    import TheCard from '../../ui/TheCard.vue'
     export default {
-        
+       
+       components:{
+           TheCard
+       },
        async created(){
             this.token = this.$cookies.get('com.bitjobs');
           
@@ -233,10 +262,10 @@
 <style scoped>
 
     .phone-type{ 
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-top-right-radius: 0.3125rem;
-        border-bottom-right-radius: 0.3125rem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 0.3125rem;
+        border-bottom-left-radius: 0.3125rem;
         border: 0.0625rem solid #e7eaf3;
         background-color: 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         background: #fff no-repeat right 0.5rem center/1rem 1rem;
