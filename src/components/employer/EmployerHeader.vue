@@ -6,7 +6,7 @@
 
     <!-- Pages - Submenu -->
     <div v-if="pagesShow" id="jobsSubMenuPages" class="hs-sub-menu dropdown-menu show" aria-labelledby="jobPagesMegaMenu" style="min-width: 230px;">
-        <router-link class="dropdown-item" to="/employer/create-job">Post A Job</router-link>
+        <router-link class="dropdown-item" to="/employer/buy-job-package">Buy Job Package</router-link>
         <router-link class="dropdown-item" to="/employer/dashboard">Dashboard</router-link>
         <router-link class="dropdown-item" to="/employer/account">Account</router-link>
     </div>
@@ -17,7 +17,7 @@
     <!-- Button -->
     <li class="navbar-nav-last-item">
 
-        <router-link class="btn btn-sm btn-primary transition-3d-hover" to="/employer/create-job">Post a job</router-link>
+        <router-link class="btn btn-sm btn-primary transition-3d-hover" to="/employer/buy-job-package">Buy Job Package</router-link>
         
     </li>
     <!-- End Button -->
