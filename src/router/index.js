@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Dashboard from '../views/employer/Dashboard.vue'
-import CreateJobView from '../views/employer/CreateJobView.vue'
+import JobPackagePurchase from '../views/employer/JobPackagePurchase.vue'
 import JobView from '../views/employer/JobView.vue'
 import AccountView from '../views/employer/AccountView.vue'
 import JobList from '../views/JobList.vue'
@@ -36,9 +36,9 @@ const routes = [
     component: JobList
   },
   {
-    path: '/employer/create-job',
-    name: 'Create A Job',
-    component: CreateJobView
+    path: '/employer/buy-job-package',
+    name: 'Buy A Job Package',
+    component: JobPackagePurchase
   },
   {
     path: '/employer/dashboard',
