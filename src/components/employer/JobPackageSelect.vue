@@ -51,11 +51,10 @@ export default {
                   })
 
         this.jobPackages = this.jobPackages.sort((a,b) => a.id - b.id)
-
     },
     methods:{
         handleClick(e){
-            this.$emit('package-chosen',e.target.value)
+            this.$emit('package-chosen',JSON.stringify(this.jobPackages.filter(el => el.typeid == e.target.value)))
         }
     }
 }
