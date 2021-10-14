@@ -48,35 +48,17 @@
                     <h6 class="small text-cap">Job titles</h6>
 
                     <!-- Checkbox -->
-                    <div v-for="(count, title) in jobTitles" :key="title" class="d-flex align-items-center justify-content-between mb-2">
+                    <div v-for="title in jobTitles" :key="title" class="d-flex align-items-center justify-content-between mb-2">
                       <div class="custom-control custom-checkbox">
-                        <input v-model="jobTitleFilter" type="checkbox" class="custom-control-input" :id=" 'jobTitles' + title" :value="title">
-                        <label class="custom-control-label" :for="'jobTitles' + title">{{title}}</label>
+                        <input v-model="jobTitleFilter" type="checkbox" class="custom-control-input" :id=" 'jobTitles' + title[0]" :value="title[0]">
+                        <label class="custom-control-label" :for="'jobTitles' + title[0]">{{title[0]}}</label>
                       </div>
-                      <small>{{count}}</small>
+                      <small>{{title[1]}}</small>
                     </div>
                     <!-- End Checkbox -->
 
                   </div>
                   <!-- End Filter Group -->
-
-                  <!-- Filter Group -->
-                  <div class="mb-5">
-                    <h6 class="small text-cap">Company</h6>
-
-                    <!-- Checkbox -->
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="company1">
-                        <label class="custom-control-label" for="company1">Capsule</label>
-                      </div>
-                      <small>2</small>
-                    </div>
-                    <!-- End Checkbox -->
-                  </div>
-                  <!-- End Filter Group -->
-
-
                   <button type="button" class="btn btn-sm btn-block btn-white">
                     <i class="fas fa-redo fa-sm mr-1"></i> Reset all
                   </button>
@@ -92,16 +74,26 @@
 
           <hr class="my-4">
 
-        <div v-for="job in filteredJobs" :key="job.publicid">
-          <router-link  :to="'/employer/job-list/' + job.publicid">
-              <JobDisplayCard
-                :avatarSrc="job.avatarsrc" 
-                :companyName="job.companyname" 
-                :companyURL="job.companyurl"
-                :job="job"
-              ></JobDisplayCard>
-          </router-link>
-        </div>
+          <template v-if="!filteredJobs">
+              <div>Loading...</div>
+          </template>
+          <template v-else-if="!filteredJobs.length">
+              <div>
+                <img src="" alt="">
+                <p>You haven't purchased any job postings.</p>
+                <router-link class="btn btn-sm btn-primary transition-3d-hover" to="/employer/buy-job-package">Buy Job Package</router-link>
+              </div>
+          </template>
+          <div v-else v-for="job in filteredJobs" :key="job.publicid">
+            <router-link  :to="'/employer/job-list/' + job.publicid">
+                <JobDisplayCard
+                  :avatarSrc="job.avatarsrc" 
+                  :companyName="job.companyname" 
+                  :companyURL="job.companyurl"
+                  :job="job"
+                ></JobDisplayCard>
+            </router-link>
+          </div>
           
           <!-- Pagination -->
           <div class="d-flex justify-content-between align-items-center mt-7">
@@ -155,12 +147,19 @@
     computed:{
         jobTitles(){
           var titles = {}
-
+          var titlesSorted = []
           this.jobs.forEach(element => {
               titles[element.title] = this.jobs.filter(x=> x.title === element.title).length
           });
 
-          return titles;
+          for (var title in titles){
+            titlesSorted.push([title, titles[title]])
+          }
+
+          titlesSorted.sort(function(a, b) {
+              return a[1] - b[1];
+          });
+          return titlesSorted;
         },
         filteredJobs(){
 
@@ -196,14 +195,15 @@
     },
     async mounted(){
       // get jobs created by employer
-         this.jobs = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobs",
+      let token = this.$cookies.get('com.bitjobs');
+      this.jobs = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobs",
           {
               method: "GET",
               headers: {
                   "Content-Type": "application/json",
-                  Authorization: "Bearer " + process.env.VUE_APP_JWT
+                  Authorization: "Bearer " + token
               },
-              credentials: "include"
+              // credentials: "include"
           }
       ).then(result =>{
 
@@ -217,7 +217,7 @@
       })
 
       // if(this.jobs){
-        
+      //   console.log(this.jobs)
       // }
     },
     created() {
