@@ -16,19 +16,27 @@
 
                 <div class="form-group" >
                     <label for="titleLabel" class="input-label">Location</label>
-
-                    <input v-model.lazy="v$.companyDetails.location.$model" type="text" class="form-control" name="location" id="location" aria-label="Location" :class="{ 'is-invalid': v$.companyDetails.location.$error}">
+                    <input v-model="locationSearch" type="text" class="form-control" name="location" id="location" aria-label="Location"  placeholder="Search for a City" :class="{ 'is-invalid': v$.locationSearch.$error}">
                     
-                        <div class="input-errors" v-for="error of v$.companyDetails.location.$errors" :key="error.$uid">
-                        <div class="error-msg">{{ error.$message }}</div>
+                    <select2 :options="autocompleteLocations" v-model="selectedCity">
+                        <option disabled value="0">Select one</option>
+                    </select2>
+                    
+
+                        <div class="input-errors" v-for="error of v$.locationSearch.$errors" :key="error.$uid">
+                            <div class="error-msg">{{ error.$message }}</div>
                         </div>
                 </div>
 
                 <div class="form-group" >
                     <label for="titleLabel" class="input-label">URL</label>
 
-                    <input v-model.lazy="v$.companyDetails.url.$model" type="text" class="form-control" name="location" id="location" aria-label="URL" :class="{ 'is-invalid': v$.companyDetails.url.$error}">
+                    <div class="input-group">
+                        <span class="input-group-text" >https://www.</span>
+                         <input v-model.lazy="v$.companyDetails.url.$model" type="text" class="form-control" name="location" id="location" aria-label="URL" :class="{ 'is-invalid': v$.companyDetails.url.$error}">
                     
+                    </div>
+                   
                         <div class="input-errors" v-for="error of v$.companyDetails.url.$errors" :key="error.$uid">
                             <div class="error-msg">{{ error.$message }}</div>
                         </div>
@@ -113,11 +121,11 @@
         </template>
 
         <template v-slot:cardfooter>
-                <div class="ml-auto">
-                    <a class="btn btn-white" @click="cancel">Cancel</a>
-                    <span class="mx-2"></span>
-                   <a class="btn btn-primary" @click="formSubmit">Save Changes</a>
-                </div>
+            <div class="ml-auto">
+                <a class="btn btn-white" @click="cancel">Cancel</a>
+                <span class="mx-2"></span>
+                <a class="btn btn-primary" @click="formSubmit">Save Changes</a>
+            </div>
         </template>
 
     </the-card>
@@ -125,6 +133,7 @@
 
 <script>
 
+import Select2 from '../../../components/ui/Select2.vue'
 import TheCard from '../../../components/ui/TheCard.vue'
 import AlertError from '../../ui/AlertError.vue'
 import useVuelidate from '@vuelidate/core'
@@ -162,7 +171,10 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
                 this.companyDetails.companyName = this.company.name;
                 this.companyDetails.location = this.company.location;
-                this.companyDetails.url = this.company.url;
+                this.companyDetails.longitude = this.company.longitude;
+                this.companyDetails.latitude = this.company.latitude;
+                this.locationSearch = this.company.location;
+                this.companyDetails.url = this.company.url.replace("https://www.", "");
                 this.companyDetails.socials.facebook = this.company.facebook;
                 this.companyDetails.socials.twitter = this.company.twitter;
                 this.companyDetails.socials.instagram = this.company.instagram;
@@ -174,6 +186,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
         },
         components:{
+            Select2,
             TheCard,
             ckeditor: CKEditor.component,
             AlertError
@@ -182,9 +195,12 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
             return {
                 editor: ClassicEditor,
                 company:{},
+                
                 companyDetails:{
                     companyName:"",
                     location:"",
+                    longitude:"",
+                    latitude:"",
                     url:"",
                     socials:{
                         facebook:"",
@@ -196,6 +212,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
                     extraDetails:""
 
                 },
+                autocompleteLocations:{},
+                locationSearch:"",
+                selectedCity:"",
                 token:"",
                 errorMessage:"",
                 submissionError:false,
@@ -205,9 +224,12 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
         },
         validations(){
             return {
+                locationSearch:{},
                  companyDetails:{
                     companyName:{required},
                     location:{},
+                    longitude:{},
+                    latitude:{},
                     url:{required},
                     socials:{
                         facebook:{},
@@ -258,6 +280,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
                             body: JSON.stringify({ 
                                 name:this.v$.companyDetails.companyName.$model,
                                 location:this.v$.companyDetails.location.$model,
+                                longitude:this.v$.companyDetails.longitude.$model,
+                                latitude:this.v$.companyDetails.latitude.$model,
                                 url:this.v$.companyDetails.url.$model, 
                                 facebook:this.v$.companyDetails.socials.facebook.$model, 
                                 twitter:this.v$.companyDetails.socials.twitter.$model, 
@@ -309,6 +333,51 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
                 }
 
             },
+        },
+        watch:{
+            'locationSearch': async function(newVal, oldVal){
+                var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
+                const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/location/autocomplete", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + token,
+                    },
+                    body: JSON.stringify({
+                        chars:newVal
+                    })
+                }).then((res)=>{
+
+                    if(!res.ok){
+                        console.log("problem")
+                    }
+                    return res.json()
+                }).catch((error)=>{
+                    console.log("error:",error)
+                })
+                
+            
+                if(result && result.length > 0){
+                    var options = result.map(function(e, i){
+                   
+                        e.id = i+1;
+                        e.text = `${e.city}, ${e.state}, ${e.country}`;
+
+                        return e;
+                    })
+                    this.autocompleteLocations = options
+
+                }
+                
+            },
+            selectedCity: async function(newVal, oldVal){
+                var city = this.autocompleteLocations.filter(e => e.id == newVal)[0];
+            
+                this.v$.companyDetails.longitude.$model = city.longitude;
+                this.v$.companyDetails.latitude.$model = city.latitude;
+                this.v$.companyDetails.location.$model = city.text;
+                
+            }
         }
     }
 </script>
@@ -317,5 +386,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
     div img{
             width:100px;
             height:100px;
+    }
+
+     input#location{
+        margin-bottom: 5px;
     }
 </style>
