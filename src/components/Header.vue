@@ -34,10 +34,11 @@
                                 <router-link class="nav-link" to="/">Home</router-link>
                             </li>
 
-                                <AnonymousHeader></AnonymousHeader> 
+                                <!-- <AnonymousHeader></AnonymousHeader>  -->
                                 <!-- <AnonymousHeader v-if="!loggedIn"></AnonymousHeader> -->
                                 <!-- <EmployerHeader v-if="loggedIn"></EmployerHeader> -->
-                                <!-- <EmployerHeader></EmployerHeader> -->
+                                <EmployerHeader></EmployerHeader>
+                                <!-- <ApplicantHeader></ApplicantHeader> -->
                         </ul>
                     </div>
                     <!-- End Navigation -->

@@ -18,7 +18,16 @@ const routes = [
   {
     path: '/employer/login',
     name: 'Employer Login',
-    component: EmployerLogin
+    component: EmployerLogin,
+    beforeEnter:(to, from, next)=>{
+      // const { $cookies } = router.app.config.globalProperties;
+      // const token = $cookies.get('com.bitjobs');
+
+      // if(token){
+      //   next('/employer/dashboard')
+      // }
+      next()
+    }
   },
   {
     path: '/employer/signup',
@@ -43,11 +52,8 @@ const routes = [
   {
     path: '/employer/dashboard',
     name: 'Employer Dashboard',
-    component:Dashboard,
-    beforeEnter:(to, from, next)=>{
-      //  console.log(Vue.$cookies)
-       next()
-    }
+    component:Dashboard
+    
   },
   {
     path: '/employer/account',
@@ -78,17 +84,48 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to,from, next) =>{
-  // const { $cookies } = router.app.config.globalProperties
-  // console.log('com.bitjobs', $cookies.get('com.bitjobs'))
-  next()
-  // if(to.fullPath === '/login'){
+router.beforeEach( async (to,from, next) =>{
+  const { $cookies } = router.app.config.globalProperties;
+  const token = $cookies.get('com.bitjobs');
 
-  //   if(token){
-  //     next('/employer/dashboard')
-  //   }
-  // }
+  if(to.fullPath.includes("employer")){
+    var employer = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get",
+      {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
+            }
+        }
+      ).then(result =>{
 
+          if(!result.ok){
+              console.log(result)
+              return result
+          }
+          return result.json()
+
+      })
+
+      if(employer){
+        if(employer.registrationstep != "registration-complete" && !to.fullPath.includes('registration')){
+          next('/employer/registration')
+        } else { 
+          if(to.fullPath.includes('login')){
+            next('/employer/dashboard')
+          }
+          next()
+        }
+      } else { 
+        next('/employer/login')
+      }
+  }
+
+  if(to.fullPath.includes("applicant")){
+    
+  }
+  
+    next()
   // if(to.fullPath === ''){
 
   // }

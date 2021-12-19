@@ -234,12 +234,15 @@ export default {
             })
 
             if(this.job){
+                console.log(this.job)
                 this.dataReady = true;
                 this.title = this.job.title;
                 this.jobType = this.job.jobtype;
                 this.jobCategory = this.job.category;
                 this.jobDescription = this.job.description;
-                this.jobDurationStart = this.job.poststartdatetime;
+                this.jobDurationStart = this.formatDate(this.job.poststartdatetime);
+                this.remote = String(Number(this.job.remote));
+
                 // this.
             }
             
