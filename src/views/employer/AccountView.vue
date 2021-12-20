@@ -72,12 +72,13 @@
     import PersonalInformation from '../../components/employer/account/PersonalInformation.vue'
     import LoginSecurity from '../../components/employer/account/LoginSecurity.vue'
     import CompanyDetails from '../../components/employer/account/CompanyDetails.vue'
-    
+    import Cookies from 'js-cookie'
+
     export default{
 
         async created(){
             this.$emit('update:layout', LayoutDefault);
-            this.token = this.$cookies.get('com.bitjobs');
+            this.token = Cookies.get('com.bitjobs');
 
             this.employer = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get",
             {

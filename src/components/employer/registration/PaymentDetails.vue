@@ -21,6 +21,8 @@
 <script>
 
 import TheCard from '../../../components/ui/TheCard.vue'
+import Cookies from 'js-cookie'
+
     export default {
         data(){
             return { 
@@ -33,7 +35,7 @@ import TheCard from '../../../components/ui/TheCard.vue'
         methods:{
             async formSubmit(){
 
-                var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
+                var token = this.$store.getters.getToken || Cookies.get('com.bitjobs');
 
                 const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-payment-details",
                 {

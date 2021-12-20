@@ -21,6 +21,9 @@
 </template>
 
 <script>
+
+import Cookies from 'js-cookie'
+
 export default {
     emits:["package-chosen"],
     data(){
@@ -29,7 +32,7 @@ export default {
         }
     },
     async created(){
-        const token = this.$cookies.get('com.bitjobs');
+        const token = Cookies.get('com.bitjobs');
         this.jobPackages = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobpackages/active",
                       {
                           method: "GET",

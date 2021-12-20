@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import Cookies from 'js-cookie';
 
 const store = createStore({
     state(){
@@ -30,8 +31,8 @@ const store = createStore({
             context.commit('setToken', {token: data.token})
             context.commit('setRegistrationStep', {registrationstep: data.registrationstep})
 
-            const { $cookies } = store.app.config.globalProperties
-            $cookies.set('com.bitjobs', data.token)
+            // const { $cookies } = store.app.config.globalProperties
+            Cookies.set('com.bitjobs', data.token,{expires: 7, secure:true, sameSite:"none"})
             
         } else { 
             const error = new Error(

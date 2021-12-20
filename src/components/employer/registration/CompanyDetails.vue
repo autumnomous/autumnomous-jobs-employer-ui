@@ -137,6 +137,7 @@ import useVuelidate from '@vuelidate/core'
 import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import Cookies from 'js-cookie'
 
     export default {
         setup(){
@@ -145,7 +146,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
             }
         },
         async created(){
-            this.token = this.$cookies.get('com.bitjobs');
+            this.token = Cookies.get('com.bitjobs');
             this.company = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/company",
                 {
                     method: "GET",
@@ -323,7 +324,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
         },
         watch:{
             'locationSearch': async function(newVal, oldVal){
-                var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
+                var token = this.$store.getters.getToken || Cookies.get('com.bitjobs');
                 const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/location/autocomplete", {
                     method: "POST",
                     headers: {

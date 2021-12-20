@@ -41,6 +41,8 @@
     import TheCard from '../../ui/TheCard.vue'
     import useVuelidate from '@vuelidate/core'
     import { helpers, required, minLength, sameAs, url } from '@vuelidate/validators'
+    import Cookies from 'js-cookie'
+
     export default {
         setup(){
             return {
@@ -64,7 +66,7 @@
         methods:{ 
             async formSubmit(){
 
-                var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
+                var token = this.$store.getters.getToken || Cookies.get('com.bitjobs');
 
                 const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-payment-method",
                 {

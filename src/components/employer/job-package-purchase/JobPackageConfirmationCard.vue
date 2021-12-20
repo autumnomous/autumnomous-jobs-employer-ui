@@ -24,6 +24,8 @@
 <script>
   import TheCard from '../../ui/TheCard.vue'
   import AlertError from '../../ui/AlertError.vue'
+  import Cookies from 'js-cookie'
+  
     export default {
         props:{
           packageChosen:{
@@ -47,7 +49,7 @@
           },
            async formSubmit(e){
 
-            let token = this.$cookies.get('com.bitjobs');
+            let token = Cookies.get('com.bitjobs');
             let result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/buy/job-package",
                 {
                     method: "POST",

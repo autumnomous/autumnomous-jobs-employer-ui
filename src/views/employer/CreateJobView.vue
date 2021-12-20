@@ -347,6 +347,7 @@
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
     import useVuelidate from '@vuelidate/core'
     import { required, minLength, email } from '@vuelidate/validators'
+    import Cookies from 'js-cookie'
 
     export default{
         setup () {
@@ -425,12 +426,13 @@
             },
             async submitForm(e){
                 // if(this.emitEvent == false){
+                  this.token = Cookies.get('com.bitjobs');
                   let job = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/create/job",
                       {
                           method: "POST",
                           headers: {
                               "Content-Type": "application/json",
-                              Authorization: "Bearer " + process.env.VUE_APP_JWT
+                              Authorization: "Bearer " + this.token
                           },
                           // credentials: "include",
                           body: JSON.stringify({ 
@@ -489,7 +491,7 @@
          },
          async created() {
           this.$emit('update:layout', LayoutDefault);
-          this.token = this.$cookies.get('com.bitjobs');
+          this.token = Cookies.get('com.bitjobs');
 
           // if(this.token){
           //     var jobsData = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobs",

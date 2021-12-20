@@ -153,6 +153,7 @@ import AlertError from '../../ui/AlertError.vue'
 import TheCard from '../../ui/TheCard.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, helpers} from '@vuelidate/validators'
+import Cookies from 'js-cookie'
 
     export default {
       props:{
@@ -220,7 +221,7 @@ import { required, helpers} from '@vuelidate/validators'
                     this.submissionError = true;
                 } else { 
                     this.submissionError = false;
-                    var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
+                    var token = this.$store.getters.getToken || Cookies.get('com.bitjobs');
                     
                       const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-account",
                       {

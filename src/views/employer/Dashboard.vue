@@ -133,6 +133,8 @@
 <script>
   import JobDisplayCard from '../../components/employer/JobDisplayCard.vue'
   import LayoutDefault from '../../layouts/LayoutDefault.vue'
+  import Cookies from 'js-cookie'
+  
   export default {
     name:"Job List",
     components:{
@@ -195,7 +197,7 @@
     },
     async mounted(){
       // get jobs created by employer
-      let token = this.$cookies.get('com.bitjobs');
+      let token = Cookies.get('com.bitjobs');
       this.jobs = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobs",
           {
               method: "GET",

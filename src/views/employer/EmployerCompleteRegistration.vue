@@ -103,13 +103,14 @@
   import PaymentMethod from '../../components/employer/registration/PaymentMethod.vue'
   import PaymentDetails from '../../components/employer/registration/PaymentDetails.vue'
   import RegistrationComplete from '../../components/employer/registration/RegistrationComplete.vue'
+  import Cookies from 'js-cookie'
 
   export default {
       async created() {
           this.$emit('update:layout', RegistrationLayout);
 
           
-          this.token = this.$cookies.get('com.bitjobs');
+          this.token = Cookies.get('com.bitjobs');
           
           this.employer = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get",
             {

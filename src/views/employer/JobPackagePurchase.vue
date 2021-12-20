@@ -19,7 +19,7 @@
     import JobPackageSelectCard from '../../components/employer/job-package-purchase/JobPackageSelectCard.vue'
     import JobPackageConfirmationCard from '../../components/employer/job-package-purchase/JobPackageConfirmationCard.vue'
     import LayoutDefault from '../../layouts/LayoutDefault.vue'
-    
+    import Cookies from 'js-cookie'
 
     export default{
         data(){
@@ -67,7 +67,7 @@
          },
          async created() {
           this.$emit('update:layout', LayoutDefault);
-          this.token = this.$cookies.get('com.bitjobs');
+          this.token = Cookies.get('com.bitjobs');
         },
 
         
