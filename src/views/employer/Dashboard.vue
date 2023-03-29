@@ -197,7 +197,7 @@
     },
     async mounted(){
       // get jobs created by employer
-      let token = Cookies.get('com.bitjobs');
+      let token = Cookies.get('com.ajobs.employer');
       this.jobs = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobs",
           {
               method: "GET",

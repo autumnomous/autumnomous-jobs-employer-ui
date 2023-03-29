@@ -426,7 +426,7 @@
             },
             async submitForm(e){
                 // if(this.emitEvent == false){
-                  this.token = Cookies.get('com.bitjobs');
+                  this.token = Cookies.get('com.ajobs.employer');
                   let job = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/create/job",
                       {
                           method: "POST",
@@ -491,7 +491,7 @@
          },
          async created() {
           this.$emit('update:layout', LayoutDefault);
-          this.token = Cookies.get('com.bitjobs');
+          this.token = Cookies.get('com.ajobs.employer');
 
           // if(this.token){
           //     var jobsData = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/jobs",

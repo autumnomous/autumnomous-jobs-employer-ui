@@ -148,7 +148,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
             }
         },
         async created(){
-            this.token = this.$cookies.get('com.bitjobs');
+            this.token = this.$cookies.get('com.ajobs.employer');
             this.company = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/company",
                 {
                     method: "GET",
@@ -261,7 +261,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
             },
             async formSubmit(){
         
-                var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
+                var token = this.$store.getters.getToken || this.$cookies.get('com.ajobs.employer');
                     
                 var url = this.v$.companyDetails.url.$model
                 if(!url.includes("https://www.")){
@@ -336,7 +336,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
         },
         watch:{
             'locationSearch': async function(newVal, oldVal){
-                var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
+                var token = this.$store.getters.getToken || this.$cookies.get('com.ajobs.employer');
                 const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/location/autocomplete", {
                     method: "POST",
                     headers: {

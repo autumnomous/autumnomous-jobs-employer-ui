@@ -161,7 +161,7 @@
            TheCard
        },
        async created(){
-            this.token = this.$cookies.get('com.bitjobs');
+            this.token = this.$cookies.get('com.ajobs.employer');
           
             this.employer = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get",
                 {
