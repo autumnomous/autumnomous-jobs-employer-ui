@@ -35,7 +35,7 @@ import Cookies from 'js-cookie'
         methods:{
             async formSubmit(){
 
-                var token = this.$store.getters.getToken || Cookies.get('com.bitjobs');
+                var token = this.$store.getters.getToken || Cookies.get('com.ajobs.employer');
 
                 const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/update-payment-details",
                 {

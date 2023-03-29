@@ -67,7 +67,7 @@
          },
          async created() {
           this.$emit('update:layout', LayoutDefault);
-          this.token = Cookies.get('com.bitjobs');
+          this.token = Cookies.get('com.ajobs.employer');
         },
 
         
