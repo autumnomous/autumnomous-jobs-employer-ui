@@ -49,7 +49,7 @@
           },
            async formSubmit(e){
 
-            let token = Cookies.get('com.bitjobs');
+            let token = Cookies.get('com.ajobs.employer');
             let result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/buy/job-package",
                 {
                     method: "POST",

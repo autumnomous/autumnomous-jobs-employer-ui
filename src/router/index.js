@@ -22,7 +22,7 @@ const routes = [
     component: EmployerLogin,
     beforeEnter:(to, from, next)=>{
       // const { $cookies } = router.app.config.globalProperties;
-      // const token = $cookies.get('com.bitjobs');
+      // const token = $cookies.get('com.ajobs.employer');
 
       // if(token){
       //   next('/employer/dashboard')
@@ -87,7 +87,7 @@ const router = createRouter({
 
 router.beforeEach( async (to,from, next) =>{
   // const { $cookies } = router.app.config.globalProperties;
-  const token = Cookies.get('com.bitjobs');
+  const token = Cookies.get('com.ajobs.employer');
 
   if(to.fullPath.includes("employer")){
     // var result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get",

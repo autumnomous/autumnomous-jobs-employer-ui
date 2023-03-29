@@ -146,7 +146,7 @@ import Cookies from 'js-cookie'
             }
         },
         async created(){
-            this.token = Cookies.get('com.bitjobs');
+            this.token = Cookies.get('com.ajobs.employer');
             this.company = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/company",
                 {
                     method: "GET",
@@ -247,7 +247,7 @@ import Cookies from 'js-cookie'
                     this.submissionError = true;
                 } else { 
                     this.submissionError = false;
-                    var token = this.$store.getters.getToken || this.$cookies.get('com.bitjobs');
+                    var token = this.$store.getters.getToken || this.$cookies.get('com.ajobs.employer');
                     
                     if(!this.companyDetails.url.includes("https://www.")){
                         this.companyDetails.url = "https://www." + this.companyDetails.url;
@@ -324,7 +324,7 @@ import Cookies from 'js-cookie'
         },
         watch:{
             'locationSearch': async function(newVal, oldVal){
-                var token = this.$store.getters.getToken || Cookies.get('com.bitjobs');
+                var token = this.$store.getters.getToken || Cookies.get('com.ajobs.employer');
                 const result = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/location/autocomplete", {
                     method: "POST",
                     headers: {

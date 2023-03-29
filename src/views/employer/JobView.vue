@@ -257,7 +257,7 @@
             },
         methods:{
             async getJob(){
-                let token = Cookies.get('com.bitjobs');
+                let token = Cookies.get('com.ajobs.employer');
                 this.job = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/get/job",
                 {
                     method: "POST",
@@ -306,7 +306,7 @@
                 return date.toISOString().split('T')[0]
             },
             async formSubmit(e){
-                let token = Cookies.get('com.bitjobs');
+                let token = Cookies.get('com.ajobs.employer');
 
                 if(!this.v$.$invalid){
                     let job = await fetch(process.env.VUE_APP_BIT_API_PATH + "/employer/edit/job",
